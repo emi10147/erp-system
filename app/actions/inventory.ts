@@ -12,6 +12,11 @@ export async function createProduct(data: {
   current_stock: number
 }) {
   try {
+    // Validate stock is not negative
+    if (data.current_stock < 0) {
+      return { success: false, message: "Error: El stock no puede ser menor a cero" }
+    }
+
     const product = await db.product.create({
       data: {
         name: data.name,
@@ -43,6 +48,11 @@ export async function updateProduct(data: {
   current_stock: number
 }) {
   try {
+    // Validate stock is not negative
+    if (data.current_stock < 0) {
+      return { success: false, message: "Error: El stock no puede ser menor a cero" }
+    }
+
     const product = await db.product.update({
       where: { id: data.id },
       data: {

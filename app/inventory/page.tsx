@@ -288,33 +288,33 @@ export default function InventoryPage() {
   }
 
   return (
-    <div className="p-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 lg:p-8">
+      {/* Header - Responsive padding */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 lg:mb-8 gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2 flex items-center gap-2">
-            <Package className="w-8 h-8 text-emerald-400" />
+          <h1 className="text-2xl lg:text-4xl font-bold text-white mb-1 lg:mb-2 flex items-center gap-2">
+            <Package className="w-6 lg:w-8 h-6 lg:h-8 text-emerald-400" />
             Gestión de Inventario
           </h1>
-          <p className="text-zinc-400">Administra todos los productos y niveles de existencias</p>
+          <p className="text-xs lg:text-base text-zinc-400">Administra todos los productos y niveles de existencias</p>
         </div>
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full lg:w-auto min-h-[44px]">
               <Plus className="w-4 h-4 mr-2" />
               Agregar Producto
             </Button>
           </SheetTrigger>
-          <SheetContent className="bg-zinc-900 border-zinc-800">
+          <SheetContent className="bg-zinc-900 border-zinc-800 w-full sm:max-w-md">
             <SheetHeader>
               <SheetTitle className="text-white">Agregar Nuevo Producto</SheetTitle>
               <SheetDescription className="text-zinc-400">
                 Crea un nuevo producto en tu inventario
               </SheetDescription>
             </SheetHeader>
-            <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+            <form onSubmit={handleSubmit} className="space-y-4 mt-6 max-h-[calc(100vh-150px)] overflow-y-auto">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-zinc-300">
+                <Label htmlFor="name" className="text-zinc-300 text-sm">
                   Nombre del Producto
                 </Label>
                 <Input
@@ -322,12 +322,12 @@ export default function InventoryPage() {
                   placeholder="Ej: Papas Fritas"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sku" className="text-zinc-300">
+                <Label htmlFor="sku" className="text-zinc-300 text-sm">
                   SKU
                 </Label>
                 <Input
@@ -335,16 +335,16 @@ export default function InventoryPage() {
                   placeholder="Ej: POT-001"
                   value={formData.sku}
                   onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
-                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="category" className="text-zinc-300">
+                <Label htmlFor="category" className="text-zinc-300 text-sm">
                   Categoría
                 </Label>
                 <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
+                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white min-h-[44px]">
                     <SelectValue placeholder="Selecciona una categoría" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-800 border-zinc-700">
@@ -356,11 +356,11 @@ export default function InventoryPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="type" className="text-zinc-300">
+                <Label htmlFor="type" className="text-zinc-300 text-sm">
                   Tipo de Corte
                 </Label>
                 <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
+                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white min-h-[44px]">
                     <SelectValue placeholder="Selecciona un tipo de corte" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-800 border-zinc-700">
@@ -372,11 +372,11 @@ export default function InventoryPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location" className="text-zinc-300">
+                <Label htmlFor="location" className="text-zinc-300 text-sm">
                   Ubicación
                 </Label>
                 <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
+                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white min-h-[44px]">
                     <SelectValue placeholder="Selecciona una ubicación" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-800 border-zinc-700">
@@ -388,23 +388,24 @@ export default function InventoryPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="stock" className="text-zinc-300">
+                <Label htmlFor="stock" className="text-zinc-300 text-sm">
                   Existencias Iniciales (kg)
                 </Label>
                 <Input
                   id="stock"
                   type="number"
                   placeholder="0"
+                  min="0"
                   value={formData.current_stock}
                   onChange={(e) => setFormData({ ...formData, current_stock: e.target.value })}
-                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white min-h-[44px]"
               >
                 {isSubmitting ? "Guardando..." : "Crear Producto"}
               </Button>
@@ -415,16 +416,16 @@ export default function InventoryPage() {
 
       {/* Edit Product Sheet */}
       <Sheet open={isEditSheetOpen} onOpenChange={setIsEditSheetOpen}>
-        <SheetContent className="bg-zinc-900 border-zinc-800">
+        <SheetContent className="bg-zinc-900 border-zinc-800 w-full sm:max-w-md">
           <SheetHeader>
             <SheetTitle className="text-white">Editar Producto</SheetTitle>
             <SheetDescription className="text-zinc-400">
               Actualiza los detalles del producto
             </SheetDescription>
           </SheetHeader>
-          <form onSubmit={handleEditSubmit} className="space-y-6 mt-6">
+          <form onSubmit={handleEditSubmit} className="space-y-4 mt-6 max-h-[calc(100vh-150px)] overflow-y-auto">
             <div className="space-y-2">
-              <Label htmlFor="edit-name" className="text-zinc-300">
+              <Label htmlFor="edit-name" className="text-zinc-300 text-sm">
                 Nombre del Producto
               </Label>
               <Input
@@ -432,12 +433,12 @@ export default function InventoryPage() {
                 placeholder="Ej: Papas Fritas"
                 value={editFormData.name}
                 onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
-                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-sku" className="text-zinc-300">
+              <Label htmlFor="edit-sku" className="text-zinc-300 text-sm">
                 SKU
               </Label>
               <Input
@@ -445,16 +446,16 @@ export default function InventoryPage() {
                 placeholder="Ej: POT-001"
                 value={editFormData.sku}
                 onChange={(e) => setEditFormData({ ...editFormData, sku: e.target.value })}
-                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-category" className="text-zinc-300">
+              <Label htmlFor="edit-category" className="text-zinc-300 text-sm">
                 Categoría
               </Label>
               <Select value={editFormData.category} onValueChange={(value) => setEditFormData({ ...editFormData, category: value })}>
-                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
+                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white min-h-[44px]">
                   <SelectValue placeholder="Selecciona una categoría" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-800 border-zinc-700">
@@ -466,11 +467,11 @@ export default function InventoryPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-type" className="text-zinc-300">
+              <Label htmlFor="edit-type" className="text-zinc-300 text-sm">
                 Tipo de Corte
               </Label>
               <Select value={editFormData.type} onValueChange={(value) => setEditFormData({ ...editFormData, type: value })}>
-                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
+                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white min-h-[44px]">
                   <SelectValue placeholder="Selecciona un tipo de corte" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-800 border-zinc-700">
@@ -482,11 +483,11 @@ export default function InventoryPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-location" className="text-zinc-300">
+              <Label htmlFor="edit-location" className="text-zinc-300 text-sm">
                 Ubicación
               </Label>
               <Select value={editFormData.location} onValueChange={(value) => setEditFormData({ ...editFormData, location: value })}>
-                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
+                <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white min-h-[44px]">
                   <SelectValue placeholder="Selecciona una ubicación" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-800 border-zinc-700">
@@ -498,23 +499,24 @@ export default function InventoryPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-stock" className="text-zinc-300">
+              <Label htmlFor="edit-stock" className="text-zinc-300 text-sm">
                 Existencias (kg)
               </Label>
               <Input
                 id="edit-stock"
                 type="number"
                 placeholder="0"
+                min="0"
                 value={editFormData.current_stock}
                 onChange={(e) => setEditFormData({ ...editFormData, current_stock: e.target.value })}
-                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
               />
             </div>
 
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white min-h-[44px]"
             >
               {isSubmitting ? "Guardando..." : "Actualizar Producto"}
             </Button>
@@ -546,14 +548,14 @@ export default function InventoryPage() {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Products Table */}
+      {/* Products Table - Desktop / Card List - Mobile */}
       <div className="glass-card">
-        <div className="p-6 border-b border-white/10">
-          <h2 className="text-xl font-bold text-white">Productos</h2>
+        <div className="p-4 lg:p-6 border-b border-white/10">
+          <h2 className="text-lg lg:text-xl font-bold text-white">Productos</h2>
         </div>
 
         {isLoading ? (
-          <div className="p-6">
+          <div className="p-4 lg:p-6">
             <div className="space-y-3">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Skeleton key={i} className="h-12 w-full bg-zinc-800" />
@@ -561,79 +563,137 @@ export default function InventoryPage() {
             </div>
           </div>
         ) : products.length === 0 ? (
-          <div className="p-12 flex flex-col items-center justify-center">
-            <div className="w-16 h-16 glass-card rounded-full flex items-center justify-center mb-4">
-              <Package className="w-8 h-8 text-zinc-500" />
+          <div className="p-8 lg:p-12 flex flex-col items-center justify-center">
+            <div className="w-14 lg:w-16 h-14 lg:h-16 glass-card rounded-full flex items-center justify-center mb-4">
+              <Package className="w-6 lg:w-8 h-6 lg:h-8 text-zinc-500" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Sin Productos</h3>
-            <p className="text-zinc-400 text-center mb-6 max-w-md">
+            <h3 className="text-lg lg:text-xl font-bold text-white mb-2">Sin Productos</h3>
+            <p className="text-xs lg:text-base text-zinc-400 text-center mb-6 max-w-md">
               Tu inventario está vacío. Agrega tu primer producto para comenzar.
             </p>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white min-h-[44px]">
               <Plus className="w-4 h-4 mr-2" />
               Agregar Primer Producto
             </Button>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-white/10 hover:bg-transparent">
-                  <TableHead className="text-zinc-300">Nombre</TableHead>
-                  <TableHead className="text-zinc-300">SKU</TableHead>
-                  <TableHead className="text-zinc-300">Categoría</TableHead>
-                  <TableHead className="text-zinc-300">Tipo de Corte</TableHead>
-                  <TableHead className="text-zinc-300">Ubicación</TableHead>
-                  <TableHead className="text-zinc-300 text-right">Existencias (kg)</TableHead>
-                  <TableHead className="text-zinc-300">Acciones</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {products.map((product) => (
-                  <TableRow key={product.id} className="border-white/5 hover:bg-white/5">
-                    <TableCell className="text-white font-medium">{product.name}</TableCell>
-                    <TableCell className="font-mono text-zinc-300">{product.sku}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={`${getCategoryColor(product.category)} border`}>
+          <>
+            {/* Desktop Table View */}
+            <div className="hidden md:overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-white/10 hover:bg-transparent">
+                    <TableHead className="text-zinc-300 text-xs lg:text-sm">Nombre</TableHead>
+                    <TableHead className="text-zinc-300 text-xs lg:text-sm">SKU</TableHead>
+                    <TableHead className="text-zinc-300 text-xs lg:text-sm">Categoría</TableHead>
+                    <TableHead className="text-zinc-300 text-xs lg:text-sm">Tipo de Corte</TableHead>
+                    <TableHead className="text-zinc-300 text-xs lg:text-sm">Ubicación</TableHead>
+                    <TableHead className="text-zinc-300 text-right text-xs lg:text-sm">Existencias (kg)</TableHead>
+                    <TableHead className="text-zinc-300 text-xs lg:text-sm">Acciones</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {products.map((product) => (
+                    <TableRow key={product.id} className="border-white/5 hover:bg-white/5">
+                      <TableCell className="text-white font-medium text-xs lg:text-sm">{product.name}</TableCell>
+                      <TableCell className="font-mono text-zinc-300 text-xs lg:text-sm">{product.sku}</TableCell>
+                      <TableCell className="text-xs lg:text-sm">
+                        <Badge variant="outline" className={`${getCategoryColor(product.category)} border text-xs`}>
+                          {getCategoryLabel(product.category)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-xs lg:text-sm">
+                        <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border text-xs`}>
+                          {getFriesTypeLabel(product.type)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-xs lg:text-sm">
+                        <Badge variant="outline" className={`${getLocationColor(product.location)} border text-xs`}>
+                          {getLocationLabel(product.location)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right text-emerald-400 font-semibold text-xs lg:text-sm">
+                        {product.current_stock}
+                      </TableCell>
+                      <TableCell className="text-xs lg:text-sm">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => openEditSheet(product)}
+                            className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                            title="Editar producto"
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => openDeleteAlert(product)}
+                            className="p-2 text-zinc-400 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                            title="Eliminar producto"
+                          >
+                            <Trash className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden p-4 space-y-3">
+              {products.map((product) => (
+                <div key={product.id} className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-white text-sm truncate">{product.name}</h3>
+                      <p className="text-xs text-zinc-400 font-mono">{product.sku}</p>
+                    </div>
+                    <div className="flex gap-2 flex-shrink-0">
+                      <button
+                        onClick={() => openEditSheet(product)}
+                        className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        title="Editar producto"
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => openDeleteAlert(product)}
+                        className="p-2 text-zinc-400 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        title="Eliminar producto"
+                      >
+                        <Trash className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <p className="text-zinc-400">Categoría</p>
+                      <Badge variant="outline" className={`${getCategoryColor(product.category)} border text-xs mt-1`}>
                         {getCategoryLabel(product.category)}
                       </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border`}>
+                    </div>
+                    <div>
+                      <p className="text-zinc-400">Tipo de Corte</p>
+                      <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border text-xs mt-1`}>
                         {getFriesTypeLabel(product.type)}
                       </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={`${getLocationColor(product.location)} border`}>
+                    </div>
+                    <div>
+                      <p className="text-zinc-400">Ubicación</p>
+                      <Badge variant="outline" className={`${getLocationColor(product.location)} border text-xs mt-1`}>
                         {getLocationLabel(product.location)}
                       </Badge>
-                    </TableCell>
-                    <TableCell className="text-right text-emerald-400 font-semibold">
-                      {product.current_stock}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex gap-1">
-                        <button
-                          onClick={() => openEditSheet(product)}
-                          className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded transition-colors"
-                          title="Editar producto"
-                        >
-                          <Pencil className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => openDeleteAlert(product)}
-                          className="p-2 text-zinc-400 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
-                          title="Eliminar producto"
-                        >
-                          <Trash className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-zinc-400">Existencias</p>
+                      <p className="text-lg font-bold text-emerald-400 mt-1">{product.current_stock} kg</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

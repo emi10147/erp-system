@@ -1,15 +1,654 @@
-[00:00:00.630] Server  LOG     ✓ Ready in 396ms
-[00:00:01.377] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.385] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.405] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.486] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.488] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.526] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.814] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:13.307] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:15.241] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:20.546] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:01.474] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:13.970] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:28.554] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:29.276] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:00.644] Server  LOG     ✓ Ready in 412ms
+[00:00:00.921] Server  ERROR   ⨯ ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.129] Server  ERROR   ⨯ ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.166] Server  ERROR   ⨯ ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.207] Server  ERROR   ⨯ ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.250] Server  ERROR   ⨯ ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.436] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.457] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.469] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:01.523] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.537] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.639] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.651] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.662] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.696] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.714] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:01.714] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:01.714] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:01.846] Browser ERROR   uncaughtError: Error: ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+[00:00:01.873] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:01.997] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.698] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.698] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="dark font-...">
+                          <body
+                            className="bg-zinc-950"
+-                           style={{overflow-x:"hidden",overflow-y:"hidden"}}
+                          >
+                  ...
+
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:02.699] Browser ERROR   ./app/inventory/page.tsx:403:18
+Parsing ecmascript source code failed
+  401 |                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[44px]"
+  402 |                 />
+> 403 |                 />
+      |                  ^
+  404 |               </div>
+  405 |
+  406 |               <Button
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[00:00:23.911] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:23.995] Server  LOG     ✓ Compiled in 483ms
+[00:00:24.446] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.663] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.675] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.735] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.746] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.774] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.892] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.894] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.920] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:29.737] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:30.832] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:33.102] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:33.111] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

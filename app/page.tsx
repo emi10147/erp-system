@@ -151,39 +151,39 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      {/* Header - Responsive */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 lg:mb-8 gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Panel de Control v1.0</h1>
-          <p className="text-zinc-400">Centro de Comando - Fábrica de Papas Fritas Congeladas</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-white mb-1 lg:mb-2">Panel de Control v1.0</h1>
+          <p className="text-xs lg:text-base text-zinc-400">Centro de Comando - Fábrica de Papas Fritas Congeladas</p>
         </div>
-        <div className="flex items-center gap-4 glass-card px-6 py-4">
-          <Clock className="w-6 h-6 text-emerald-400" />
+        <div className="flex items-center gap-4 glass-card px-4 lg:px-6 py-3 lg:py-4 min-h-[44px]">
+          <Clock className="w-5 lg:w-6 h-5 lg:h-6 text-emerald-400 flex-shrink-0" />
           <div>
             <p className="text-xs text-zinc-400">Hora Actual</p>
-            <p className="text-2xl font-mono font-bold text-white">{currentTime}</p>
+            <p className="text-lg lg:text-2xl font-mono font-bold text-white">{currentTime}</p>
           </div>
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid-stats mb-8">
+      {/* Stats Grid - Responsive */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
         <StatCard title="Stock Bruto (kg)" value={stats.rawStock} loading={isLoading} />
         <StatCard title="Lotes Activos" value={stats.activeBatches} loading={isLoading} />
-        <StatCard title="Almacenamiento en Frío (unidades)" value={stats.coldStorage} loading={isLoading} />
+        <StatCard title="Almacenamiento en Frío (kg)" value={stats.coldStorage} loading={isLoading} />
         <StatCard title="Pedidos Pendientes" value={stats.pendingOrders} loading={isLoading} />
-        <StatCard title="Peso Total de Materia Prima" value={stats.rawStock} loading={isLoading} />
-        <StatCard title="Total de Producto Terminado" value={stats.coldStorage} loading={isLoading} />
+        <StatCard title="Materia Prima" value={stats.rawStock} loading={isLoading} />
+        <StatCard title="Producto Terminado" value={stats.coldStorage} loading={isLoading} />
       </div>
 
-      {/* Cold Storage Detail Section */}
+      {/* Cold Storage Detail Section - Responsive */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-4">
-          <Snowflake className="w-5 h-5 text-blue-400" />
-          <h2 className="text-xl font-bold text-white">Estado de Cámaras Frías</h2>
+          <Snowflake className="w-5 h-5 text-blue-400 flex-shrink-0" />
+          <h2 className="text-xl lg:text-2xl font-bold text-white">Estado de Cámaras Frías</h2>
         </div>
         
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
           {/* Cuarto Frío 1 */}
           {isLoading ? (
             <>
@@ -201,48 +201,48 @@ export default function Dashboard() {
           ) : (
             <>
               {/* CF1 Card */}
-              <div className="glass-card p-6 border border-blue-500/30 bg-blue-500/10">
-                <h3 className="text-lg font-semibold text-blue-300 mb-3">Cuarto Frío 1</h3>
+              <div className="glass-card p-4 lg:p-6 border border-blue-500/30 bg-blue-500/10">
+                <h3 className="text-base lg:text-lg font-semibold text-blue-300 mb-3">Cuarto Frío 1</h3>
                 <div className="mb-5">
                   <p className="text-xs text-zinc-400 mb-1">Total en Stock</p>
-                  <p className="text-4xl font-bold text-blue-400">{coldStorageData?.cuartoFrio1.total.toFixed(0)} kg</p>
+                  <p className="text-3xl lg:text-4xl font-bold text-blue-400">{coldStorageData?.cuartoFrio1.total.toFixed(0)} kg</p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-400 mb-3 font-semibold">Top 3 Productos</p>
                   <div className="space-y-2">
                     {coldStorageData?.cuartoFrio1.topProducts && coldStorageData.cuartoFrio1.topProducts.length > 0 ? (
                       coldStorageData.cuartoFrio1.topProducts.map((product, idx) => (
-                        <div key={idx} className="flex justify-between items-center bg-white/5 rounded-md p-2">
-                          <span className="text-sm text-zinc-300">{product.name}</span>
-                          <span className="text-sm font-semibold text-blue-300">{product.stock} kg</span>
+                        <div key={idx} className="flex justify-between items-center bg-white/5 rounded-md p-2 text-xs lg:text-sm">
+                          <span className="text-zinc-300 truncate">{product.name}</span>
+                          <span className="text-blue-300 font-semibold ml-2 flex-shrink-0">{product.stock} kg</span>
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-zinc-500 italic">Sin productos</p>
+                      <p className="text-xs text-zinc-500 italic">Sin productos</p>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* CF2 Card */}
-              <div className="glass-card p-6 border border-blue-500/30 bg-blue-500/10">
-                <h3 className="text-lg font-semibold text-blue-300 mb-3">Cuarto Frío 2</h3>
+              <div className="glass-card p-4 lg:p-6 border border-blue-500/30 bg-blue-500/10">
+                <h3 className="text-base lg:text-lg font-semibold text-blue-300 mb-3">Cuarto Frío 2</h3>
                 <div className="mb-5">
                   <p className="text-xs text-zinc-400 mb-1">Total en Stock</p>
-                  <p className="text-4xl font-bold text-blue-400">{coldStorageData?.cuartoFrio2.total.toFixed(0)} kg</p>
+                  <p className="text-3xl lg:text-4xl font-bold text-blue-400">{coldStorageData?.cuartoFrio2.total.toFixed(0)} kg</p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-400 mb-3 font-semibold">Top 3 Productos</p>
                   <div className="space-y-2">
                     {coldStorageData?.cuartoFrio2.topProducts && coldStorageData.cuartoFrio2.topProducts.length > 0 ? (
                       coldStorageData.cuartoFrio2.topProducts.map((product, idx) => (
-                        <div key={idx} className="flex justify-between items-center bg-white/5 rounded-md p-2">
-                          <span className="text-sm text-zinc-300">{product.name}</span>
-                          <span className="text-sm font-semibold text-blue-300">{product.stock} kg</span>
+                        <div key={idx} className="flex justify-between items-center bg-white/5 rounded-md p-2 text-xs lg:text-sm">
+                          <span className="text-zinc-300 truncate">{product.name}</span>
+                          <span className="text-blue-300 font-semibold ml-2 flex-shrink-0">{product.stock} kg</span>
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-zinc-500 italic">Sin productos</p>
+                      <p className="text-xs text-zinc-500 italic">Sin productos</p>
                     )}
                   </div>
                 </div>

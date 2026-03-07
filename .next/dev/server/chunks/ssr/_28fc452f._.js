@@ -32,6 +32,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 async function createProduct(data) {
     try {
+        // Validate stock is not negative
+        if (data.current_stock < 0) {
+            return {
+                success: false,
+                message: "Error: El stock no puede ser menor a cero"
+            };
+        }
         const product = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].product.create({
             data: {
                 name: data.name,
@@ -59,6 +66,13 @@ async function createProduct(data) {
 }
 async function updateProduct(data) {
     try {
+        // Validate stock is not negative
+        if (data.current_stock < 0) {
+            return {
+                success: false,
+                message: "Error: El stock no puede ser menor a cero"
+            };
+        }
         const product = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].product.update({
             where: {
                 id: data.id
