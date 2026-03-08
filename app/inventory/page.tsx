@@ -57,7 +57,6 @@ export default function InventoryPage() {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [isEditSheetOpen, setIsEditSheetOpen] = useState(false)
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false)
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [productToDelete, setProductToDelete] = useState<Product | null>(null)
   const [formData, setFormData] = useState({
     name: "",
@@ -132,7 +131,6 @@ export default function InventoryPage() {
   }
 
   const openEditSheet = (product: Product) => {
-    setEditingProduct(product)
     setEditFormData({
       id: product.id,
       name: product.name,
@@ -167,7 +165,6 @@ export default function InventoryPage() {
       if (result.success) {
         setEditFormData({ id: "", name: "", sku: "", category: "", type: "NORMAL_CUT", location: "", current_stock: "" })
         setIsEditSheetOpen(false)
-        setEditingProduct(null)
         fetchProducts()
         alert(result.message)
       } else {
@@ -579,7 +576,7 @@ export default function InventoryPage() {
         ) : (
           <>
             {/* Desktop Table View */}
-            <div className="hidden md:overflow-x-auto">
+            <div className="hidden md:block overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow className="border-white/10 hover:bg-transparent">

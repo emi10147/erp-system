@@ -8,7 +8,6 @@ import {
   Factory,
   ShoppingCart,
   Settings,
-  AlertCircle,
 } from "lucide-react"
 
 import {
@@ -20,7 +19,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 
 const navItems = [

@@ -1,6 +1,6 @@
 {
   "node": {
-    "40199d7246bda28153bd094046d43271c5108547cb": {
+    "40368eb174ed885a7ffd7d02c8a10ff317434b0bde": {
       "workers": {
         "app/inventory/page": {
           "moduleId": "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
@@ -15,7 +15,7 @@
       "exportedName": "createProduct",
       "filename": "app/actions/inventory.ts"
     },
-    "407003821151dd09b1ca7568e24b27e31e7098cfdb": {
+    "40049b2e1b8ce5c52532972531966b4cf6b6eea4db": {
       "workers": {
         "app/inventory/page": {
           "moduleId": "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
@@ -30,7 +30,7 @@
       "exportedName": "updateProduct",
       "filename": "app/actions/inventory.ts"
     },
-    "406ea69f67b5df0283fa893aeabe9637fb59c5f6eb": {
+    "40349b20567322254df6af2b7d37ff710f87d5c603": {
       "workers": {
         "app/inventory/page": {
           "moduleId": "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",

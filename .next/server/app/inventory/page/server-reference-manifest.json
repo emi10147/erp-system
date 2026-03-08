@@ -1,0 +1,50 @@
+{
+  "node": {
+    "40ce0e7e29216e5f67fbdbdd2451d66c38d65dd9bd": {
+      "workers": {
+        "app/inventory/page": {
+          "moduleId": 28949,
+          "async": false,
+          "exportedName": "createProduct",
+          "filename": "app/actions/inventory.ts"
+        }
+      },
+      "layer": {
+        "app/inventory/page": "action-browser"
+      },
+      "exportedName": "createProduct",
+      "filename": "app/actions/inventory.ts"
+    },
+    "40274a085183561e738ff8987be0434fd45613821a": {
+      "workers": {
+        "app/inventory/page": {
+          "moduleId": 28949,
+          "async": false,
+          "exportedName": "updateProduct",
+          "filename": "app/actions/inventory.ts"
+        }
+      },
+      "layer": {
+        "app/inventory/page": "action-browser"
+      },
+      "exportedName": "updateProduct",
+      "filename": "app/actions/inventory.ts"
+    },
+    "40bf7a84fd2eaf7e4ba7295e5342c2daf1ce1a9feb": {
+      "workers": {
+        "app/inventory/page": {
+          "moduleId": 28949,
+          "async": false,
+          "exportedName": "deleteProduct",
+          "filename": "app/actions/inventory.ts"
+        }
+      },
+      "layer": {
+        "app/inventory/page": "action-browser"
+      },
+      "exportedName": "deleteProduct",
+      "filename": "app/actions/inventory.ts"
+    }
+  },
+  "edge": {}
+}

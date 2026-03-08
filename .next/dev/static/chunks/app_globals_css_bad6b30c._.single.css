@@ -5422,12 +5422,6 @@
   }
 
   @media (min-width: 48rem) {
-    .md\:overflow-x-auto {
-      overflow-x: auto;
-    }
-  }
-
-  @media (min-width: 48rem) {
     .md\:text-left {
       text-align: left;
     }

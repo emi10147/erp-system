@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { Clock, Plus, Zap, Factory, Beaker, Snowflake } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"

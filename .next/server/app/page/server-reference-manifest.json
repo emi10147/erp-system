@@ -1,0 +1,20 @@
+{
+  "node": {
+    "009224532839e58cc68d86f267b3e162b6e7f8444b": {
+      "workers": {
+        "app/page": {
+          "moduleId": 57526,
+          "async": false,
+          "exportedName": "addToProductStock",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "addToProductStock",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}
