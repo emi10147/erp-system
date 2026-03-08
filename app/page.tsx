@@ -123,12 +123,12 @@ export default function Dashboard() {
   }
 
   const StatCard = ({ title, value, loading }: { title: string; value: string | number; loading: boolean }) => (
-    <div className="glass-card p-6">
-      <p className="text-sm font-medium text-zinc-300 mb-2">{title}</p>
+    <div className="glass-card p-6 lg:p-7">
+      <p className="text-xs lg:text-sm font-semibold text-slate-400 mb-3 uppercase tracking-wide">{title}</p>
       {loading ? (
-        <Skeleton className="h-8 w-16 bg-zinc-800" />
+        <Skeleton className="h-10 w-20 bg-slate-800/50 rounded-lg" />
       ) : (
-        <p className="text-3xl font-bold text-emerald-400">{value}</p>
+        <p className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">{value}</p>
       )}
     </div>
   )
@@ -140,41 +140,41 @@ export default function Dashboard() {
   return (
     <div className="p-4 lg:p-8 w-full min-h-screen">
       {/* Navigation Buttons - Mobile Friendly */}
-      <div className="mb-6 flex flex-col sm:flex-row gap-3">
-        <a href="/inventory" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center justify-center gap-2 flex-1 sm:flex-initial">
-          <Warehouse className="w-5 h-5" />
-          <span className="font-semibold">📦 Inventario</span>
+      <div className="mb-8 flex flex-col sm:flex-row gap-4">
+        <a href="/inventory" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
+          <Warehouse className="w-5 h-5" strokeWidth={2.5} />
+          <span>📦 Inventario</span>
         </a>
-        <a href="/production" className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-md transition-colors flex items-center justify-center gap-2 flex-1 sm:flex-initial">
-          <Factory className="w-5 h-5" />
-          <span className="font-semibold">🏭 Producción</span>
+        <a href="/production" className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:shadow-lg hover:shadow-amber-500/30 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
+          <Factory className="w-5 h-5" strokeWidth={2.5} />
+          <span>🏭 Producción</span>
         </a>
         <button
           onClick={handleTestStock}
-          className="px-4 py-2 border border-emerald-500/50 text-emerald-400 rounded-md hover:bg-emerald-500/10 hover:border-emerald-500 transition-colors flex items-center justify-center gap-2 flex-1 sm:flex-initial"
+          className="px-6 py-3 glass-card text-emerald-300 rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial border-emerald-500/50 active:scale-95"
         >
-          <Beaker className="w-4 h-4" />
-          Prueba: +500kg
+          <Beaker className="w-5 h-5" strokeWidth={2.5} />
+          <span>Prueba: +500kg</span>
         </button>
       </div>
 
       {/* Header - Responsive */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 lg:mb-8 gap-4">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 lg:mb-10 gap-6">
         <div>
-          <h1 className="text-3xl lg:text-4xl font-bold text-white mb-1 lg:mb-2">Panel de Control v1.0</h1>
-          <p className="text-xs lg:text-base text-zinc-400">Centro de Comando - Fábrica de Papas Fritas Congeladas</p>
+          <h1 className="text-4xl lg:text-5xl font-extrabold text-white mb-2 tracking-tight">Panel de Control</h1>
+          <p className="text-sm lg:text-base text-slate-400 font-medium">Centro de Comando - Sistema Integrado de Manufactura</p>
         </div>
-        <div className="flex items-center gap-4 glass-card px-4 lg:px-6 py-3 lg:py-4 min-h-[44px]">
-          <Clock className="w-5 lg:w-6 h-5 lg:h-6 text-emerald-400 flex-shrink-0" />
+        <div className="glass-card-premium px-6 lg:px-8 py-4 lg:py-5 flex items-center gap-4 min-h-[60px] backdrop-blur-xl">
+          <Clock className="w-6 lg:w-7 h-6 lg:h-7 text-emerald-400 flex-shrink-0 animate-pulse" />
           <div>
-            <p className="text-xs text-zinc-400">Hora Actual</p>
-            <p className="text-lg lg:text-2xl font-mono font-bold text-white">{currentTime}</p>
+            <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Hora Actual</p>
+            <p className="text-2xl lg:text-3xl font-mono font-bold text-emerald-300">{currentTime}</p>
           </div>
         </div>
       </div>
 
       {/* Stats Grid - Responsive */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7 mb-8 lg:mb-10">
         <StatCard title="Stock Bruto (kg)" value={stats.rawStock} loading={isLoading} />
         <StatCard title="Lotes Activos" value={stats.activeBatches} loading={isLoading} />
         <StatCard title="Almacenamiento en Frío (kg)" value={stats.coldStorage} loading={isLoading} />
@@ -184,72 +184,80 @@ export default function Dashboard() {
       </div>
 
       {/* Cold Storage Detail Section - Responsive */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <Snowflake className="w-5 h-5 text-blue-400 flex-shrink-0" />
-          <h2 className="text-xl lg:text-2xl font-bold text-white">Estado de Cámaras Frías</h2>
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2 bg-blue-500/20 rounded-lg">
+            <Snowflake className="w-5 h-5 text-blue-400" strokeWidth={2.5} />
+          </div>
+          <h2 className="text-2xl lg:text-3xl font-bold text-white">Estado de Cámaras Frías</h2>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Cuarto Frío 1 */}
           {isLoading ? (
             <>
-              <div className="glass-card p-6 border border-blue-500/30 bg-blue-500/10">
-                <Skeleton className="h-8 w-32 bg-zinc-800 mb-4" />
-                <Skeleton className="h-12 w-24 bg-zinc-800 mb-4" />
-                <Skeleton className="h-20 w-full bg-zinc-800" />
+              <div className="glass-card-dark p-6 lg:p-8">
+                <Skeleton className="h-8 w-32 bg-slate-800/50 mb-4 rounded-lg" />
+                <Skeleton className="h-12 w-24 bg-slate-800/50 mb-4 rounded-lg" />
+                <Skeleton className="h-24 w-full bg-slate-800/50 rounded-lg" />
               </div>
-              <div className="glass-card p-6 border border-blue-500/30 bg-blue-500/10">
-                <Skeleton className="h-8 w-32 bg-zinc-800 mb-4" />
-                <Skeleton className="h-12 w-24 bg-zinc-800 mb-4" />
-                <Skeleton className="h-20 w-full bg-zinc-800" />
+              <div className="glass-card-dark p-6 lg:p-8">
+                <Skeleton className="h-8 w-32 bg-slate-800/50 mb-4 rounded-lg" />
+                <Skeleton className="h-12 w-24 bg-slate-800/50 mb-4 rounded-lg" />
+                <Skeleton className="h-24 w-full bg-slate-800/50 rounded-lg" />
               </div>
             </>
           ) : (
             <>
               {/* CF1 Card */}
-              <div className="glass-card p-4 lg:p-6 border border-blue-500/30 bg-blue-500/10">
-                <h3 className="text-base lg:text-lg font-semibold text-blue-300 mb-3">Cuarto Frío 1</h3>
-                <div className="mb-5">
-                  <p className="text-xs text-zinc-400 mb-1">Total en Stock</p>
-                  <p className="text-3xl lg:text-4xl font-bold text-blue-400">{coldStorageData?.cuartoFrio1.total.toFixed(0)} kg</p>
+              <div className="glass-card-premium p-6 lg:p-8">
+                <h3 className="text-lg lg:text-xl font-bold text-blue-300 mb-4 flex items-center gap-2">
+                  <Snowflake className="w-5 h-5" />
+                  Cuarto Frío 1
+                </h3>
+                <div className="mb-6">
+                  <p className="text-xs text-slate-400 mb-2 font-semibold uppercase tracking-wide">Total en Stock</p>
+                  <p className="text-4xl lg:text-5xl font-bold text-blue-400">{coldStorageData?.cuartoFrio1.total.toFixed(0)}<span className="text-lg text-slate-400 ml-2">kg</span></p>
                 </div>
                 <div>
-                  <p className="text-xs text-zinc-400 mb-3 font-semibold">Top 3 Productos</p>
+                  <p className="text-xs text-slate-400 mb-4 font-semibold uppercase tracking-wide">Top 3 Productos</p>
                   <div className="space-y-2">
                     {coldStorageData?.cuartoFrio1.topProducts && coldStorageData.cuartoFrio1.topProducts.length > 0 ? (
                       coldStorageData.cuartoFrio1.topProducts.map((product, idx) => (
-                        <div key={idx} className="flex justify-between items-center bg-white/5 rounded-md p-2 text-xs lg:text-sm">
-                          <span className="text-zinc-300 truncate">{product.name}</span>
-                          <span className="text-blue-300 font-semibold ml-2 flex-shrink-0">{product.stock} kg</span>
+                        <div key={idx} className="flex justify-between items-center bg-white/5 hover:bg-white/10 rounded-lg p-3 text-sm transition-colors duration-200">
+                          <span className="text-slate-300 truncate font-medium">{product.name}</span>
+                          <span className="text-blue-300 font-bold ml-2 flex-shrink-0">{product.stock} kg</span>
                         </div>
                       ))
                     ) : (
-                      <p className="text-xs text-zinc-500 italic">Sin productos</p>
+                      <p className="text-xs text-slate-500 italic">Sin productos</p>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* CF2 Card */}
-              <div className="glass-card p-4 lg:p-6 border border-blue-500/30 bg-blue-500/10">
-                <h3 className="text-base lg:text-lg font-semibold text-blue-300 mb-3">Cuarto Frío 2</h3>
-                <div className="mb-5">
-                  <p className="text-xs text-zinc-400 mb-1">Total en Stock</p>
-                  <p className="text-3xl lg:text-4xl font-bold text-blue-400">{coldStorageData?.cuartoFrio2.total.toFixed(0)} kg</p>
+              <div className="glass-card-premium p-6 lg:p-8">
+                <h3 className="text-lg lg:text-xl font-bold text-blue-300 mb-4 flex items-center gap-2">
+                  <Snowflake className="w-5 h-5" />
+                  Cuarto Frío 2
+                </h3>
+                <div className="mb-6">
+                  <p className="text-xs text-slate-400 mb-2 font-semibold uppercase tracking-wide">Total en Stock</p>
+                  <p className="text-4xl lg:text-5xl font-bold text-blue-400">{coldStorageData?.cuartoFrio2.total.toFixed(0)}<span className="text-lg text-slate-400 ml-2">kg</span></p>
                 </div>
                 <div>
-                  <p className="text-xs text-zinc-400 mb-3 font-semibold">Top 3 Productos</p>
+                  <p className="text-xs text-slate-400 mb-4 font-semibold uppercase tracking-wide">Top 3 Productos</p>
                   <div className="space-y-2">
                     {coldStorageData?.cuartoFrio2.topProducts && coldStorageData.cuartoFrio2.topProducts.length > 0 ? (
                       coldStorageData.cuartoFrio2.topProducts.map((product, idx) => (
-                        <div key={idx} className="flex justify-between items-center bg-white/5 rounded-md p-2 text-xs lg:text-sm">
-                          <span className="text-zinc-300 truncate">{product.name}</span>
-                          <span className="text-blue-300 font-semibold ml-2 flex-shrink-0">{product.stock} kg</span>
+                        <div key={idx} className="flex justify-between items-center bg-white/5 hover:bg-white/10 rounded-lg p-3 text-sm transition-colors duration-200">
+                          <span className="text-slate-300 truncate font-medium">{product.name}</span>
+                          <span className="text-blue-300 font-bold ml-2 flex-shrink-0">{product.stock} kg</span>
                         </div>
                       ))
                     ) : (
-                      <p className="text-xs text-zinc-500 italic">Sin productos</p>
+                      <p className="text-xs text-slate-500 italic">Sin productos</p>
                     )}
                   </div>
                 </div>
@@ -260,18 +268,20 @@ export default function Dashboard() {
       </div>
 
       {/* Active Operations */}
-      <div className="glass-card">
-        <div className="p-6 border-b border-white/10">
-          <div className="flex items-center justify-between">
+      <div className="glass-card-premium">
+        <div className="p-6 lg:p-8 border-b border-white/10">
+          <div className="flex items-center justify-between gap-6">
             <div>
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Zap className="w-5 h-5 text-emerald-400" />
-                Líneas Activas de Fábrica
+              <h2 className="text-2xl lg:text-3xl font-bold text-white flex items-center gap-3 mb-2">
+                <div className="p-2 bg-emerald-500/20 rounded-lg">
+                  <Zap className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
+                </div>
+                Líneas Activas de Manufactura
               </h2>
-              <p className="text-sm text-zinc-400 mt-1">Batches en fabricación</p>
+              <p className="text-sm text-slate-400 font-medium">Batches en proceso de fabricación</p>
             </div>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              <Plus className="w-4 h-4 mr-2" />
+            <Button className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 text-white rounded-lg transition-all duration-300">
+              <Plus className="w-5 h-5 mr-2" />
               Nuevo Lote
             </Button>
           </div>
@@ -279,25 +289,25 @@ export default function Dashboard() {
 
         {/* Table or Zero State */}
         {isLoading ? (
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <Skeleton key={i} className="h-12 w-full bg-zinc-800" />
+                <Skeleton key={i} className="h-14 w-full bg-slate-800/50 rounded-lg" />
               ))}
             </div>
           </div>
         ) : batches.length === 0 ? (
           // Zero State
           <div className="p-12 flex flex-col items-center justify-center">
-            <div className="w-16 h-16 glass-card rounded-full flex items-center justify-center mb-4">
-              <Factory className="w-8 h-8 text-zinc-500" />
+            <div className="w-20 h-20 glass-card rounded-2xl flex items-center justify-center mb-6">
+              <Factory className="w-10 h-10 text-slate-500" strokeWidth={1.5} />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Sin Líneas Activas</h3>
-            <p className="text-zinc-400 text-center mb-6 max-w-md">
-              Todas las líneas de producción están inactivas. Inicia un nuevo lote para comenzar la fabricación.
+            <h3 className="text-2xl font-bold text-white mb-2">Sin Líneas Activas</h3>
+            <p className="text-slate-400 text-center mb-8 max-w-md font-medium">
+              Todas las líneas de producción están inactivas. Crea un nuevo lote para iniciar la fabricación.
             </p>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              <Plus className="w-4 h-4 mr-2" />
+            <Button className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 text-white rounded-lg transition-all duration-300">
+              <Plus className="w-5 h-5 mr-2" />
               Lanzar Nuevo Lote
             </Button>
           </div>
@@ -307,27 +317,27 @@ export default function Dashboard() {
             <Table>
               <TableHeader>
                 <TableRow className="border-white/10 hover:bg-transparent">
-                  <TableHead className="text-zinc-300">Lote #</TableHead>
-                  <TableHead className="text-zinc-300">Estado</TableHead>
-                  <TableHead className="text-zinc-300 text-right">Entrada (kg)</TableHead>
-                  <TableHead className="text-zinc-300 text-right">Salida (kg)</TableHead>
-                  <TableHead className="text-zinc-300 text-right">Desperdicio (kg)</TableHead>
-                  <TableHead className="text-zinc-300">Iniciado</TableHead>
+                  <TableHead className="text-slate-300 font-semibold">Lote #</TableHead>
+                  <TableHead className="text-slate-300 font-semibold">Estado</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Entrada (kg)</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Salida (kg)</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Desperdicio (kg)</TableHead>
+                  <TableHead className="text-slate-300 font-semibold">Iniciado</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {batches.map((batch) => (
-                  <TableRow key={batch.id} className="border-white/5 hover:bg-white/5">
-                    <TableCell className="font-mono text-white">{batch.batch_number}</TableCell>
+                  <TableRow key={batch.id} className="border-white/5 hover:bg-emerald-500/5 transition-colors duration-200 table-row-hover">
+                    <TableCell className="font-mono text-white font-semibold">{batch.batch_number}</TableCell>
                     <TableCell>
-                      <Badge variant="outline" className={`${getStatusColor(batch.status)} border`}>
+                      <Badge variant="outline" className={`${getStatusColor(batch.status)} border font-medium`}>
                         {getStatusLabel(batch.status)}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-right text-zinc-300">{Number(batch.input_weight_kg).toFixed(2)}</TableCell>
-                    <TableCell className="text-right text-zinc-300">{Number(batch.output_weight_kg).toFixed(2)}</TableCell>
-                    <TableCell className="text-right text-zinc-300">{Number(batch.waste_weight_kg).toFixed(2)}</TableCell>
-                    <TableCell className="text-zinc-400 text-sm">
+                    <TableCell className="text-right text-slate-300 font-medium">{Number(batch.input_weight_kg).toFixed(2)}</TableCell>
+                    <TableCell className="text-right text-slate-300 font-medium">{Number(batch.output_weight_kg).toFixed(2)}</TableCell>
+                    <TableCell className="text-right text-slate-300 font-medium">{Number(batch.waste_weight_kg).toFixed(2)}</TableCell>
+                    <TableCell className="text-slate-400 text-sm font-medium">
                       {new Date(batch.createdAt).toLocaleDateString()}
                     </TableCell>
                   </TableRow>
