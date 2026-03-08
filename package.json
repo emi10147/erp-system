@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "erp-factory",
   "version": "1.0.1",
   "description": "",
