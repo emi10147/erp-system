@@ -17,40 +17,15 @@ const mod = __turbopack_context__.x("fs", () => require("fs"));
 
 module.exports = mod;
 }),
-"[externals]/node:url [external] (node:url, cjs)", ((__turbopack_context__, module, exports) => {
+"[project]/postcss.config.cjs [postcss] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-const mod = __turbopack_context__.x("node:url", () => require("node:url"));
-
-module.exports = mod;
+module.exports = {
+    plugins: {
+        '@tailwindcss/postcss': {},
+        autoprefixer: {}
+    }
+};
 }),
-"[externals]/node:path [external] (node:path, cjs)", ((__turbopack_context__, module, exports) => {
-
-const mod = __turbopack_context__.x("node:path", () => require("node:path"));
-
-module.exports = mod;
-}),
-"[project]/postcss.config.js_.loader.mjs [postcss] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-var __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$url__$5b$external$5d$__$28$node$3a$url$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/node:url [external] (node:url, cjs)");
-var __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/node:path [external] (node:path, cjs)");
-;
-;
-const configPath = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(process.cwd(), "./postcss.config.js");
-// Absolute paths don't work with ESM imports on Windows:
-// https://github.com/nodejs/node/issues/31710
-// convert it to a file:// URL, which works on all platforms
-const configUrl = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$url__$5b$external$5d$__$28$node$3a$url$2c$__cjs$29$__["pathToFileURL"])(configPath).toString();
-const mod = await __turbopack_context__.y(configUrl);
-const __TURBOPACK__default__export__ = mod.default ?? mod;
-__turbopack_async_result__();
-} catch(e) { __turbopack_async_result__(e); } }, true);}),
 "[turbopack-node]/transforms/transforms.ts [postcss] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -99,10 +74,8 @@ function getReadEnvVariables() {
     return Array.from(readEnvVars);
 }
 }),
-"[turbopack-node]/transforms/postcss.ts { CONFIG => \"[project]/postcss.config.js_.loader.mjs [postcss] (ecmascript)\" } [postcss] (ecmascript)", ((__turbopack_context__) => {
+"[turbopack-node]/transforms/postcss.ts { CONFIG => \"[project]/postcss.config.cjs [postcss] (ecmascript)\" } [postcss] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
-
-return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 
 __turbopack_context__.s([
     "default",
@@ -113,18 +86,14 @@ __turbopack_context__.s([
 // @ts-ignore
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$postcss$2f$lib$2f$postcss$2e$mjs__$5b$postcss$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/postcss/lib/postcss.mjs [postcss] (ecmascript)");
 // @ts-ignore
-var __TURBOPACK__imported__module__$5b$project$5d2f$postcss$2e$config$2e$js_$2e$loader$2e$mjs__$5b$postcss$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/postcss.config.js_.loader.mjs [postcss] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$postcss$2e$config$2e$cjs__$5b$postcss$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/postcss.config.cjs [postcss] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$turbopack$2d$node$5d2f$transforms$2f$transforms$2e$ts__$5b$postcss$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[turbopack-node]/transforms/transforms.ts [postcss] (ecmascript)");
-var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
-    __TURBOPACK__imported__module__$5b$project$5d2f$postcss$2e$config$2e$js_$2e$loader$2e$mjs__$5b$postcss$5d$__$28$ecmascript$29$__
-]);
-[__TURBOPACK__imported__module__$5b$project$5d2f$postcss$2e$config$2e$js_$2e$loader$2e$mjs__$5b$postcss$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
 ;
 ;
 ;
 let processor;
 const init = async (ipc)=>{
-    let config = __TURBOPACK__imported__module__$5b$project$5d2f$postcss$2e$config$2e$js_$2e$loader$2e$mjs__$5b$postcss$5d$__$28$ecmascript$29$__["default"];
+    let config = __TURBOPACK__imported__module__$5b$project$5d2f$postcss$2e$config$2e$cjs__$5b$postcss$5d$__$28$ecmascript$29$__["default"];
     if (typeof config === 'function') {
         config = await config({
             env: 'development'
@@ -226,8 +195,7 @@ async function transform(ipc, cssContent, name, sourceMap) {
         assets
     };
 }
-__turbopack_async_result__();
-} catch(e) { __turbopack_async_result__(e); } }, false);}),
+}),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__6d51cb5d._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__5d23b8aa._.js.map

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Clock, Plus, Zap, Factory, Beaker, Snowflake } from "lucide-react"
+import { Clock, Plus, Zap, Factory, Beaker, Snowflake, Warehouse } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -138,15 +138,23 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-8">
-      {/* Test Button */}
-      <div className="mb-6">
+    <div className="p-4 lg:p-8 w-full min-h-screen">
+      {/* Navigation Buttons - Mobile Friendly */}
+      <div className="mb-6 flex flex-col sm:flex-row gap-3">
+        <a href="/inventory" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center justify-center gap-2 flex-1 sm:flex-initial">
+          <Warehouse className="w-5 h-5" />
+          <span className="font-semibold">📦 Inventario</span>
+        </a>
+        <a href="/production" className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-md transition-colors flex items-center justify-center gap-2 flex-1 sm:flex-initial">
+          <Factory className="w-5 h-5" />
+          <span className="font-semibold">🏭 Producción</span>
+        </a>
         <button
           onClick={handleTestStock}
-          className="px-4 py-2 border border-emerald-500/50 text-emerald-400 rounded-md hover:bg-emerald-500/10 hover:border-emerald-500 transition-colors flex items-center gap-2"
+          className="px-4 py-2 border border-emerald-500/50 text-emerald-400 rounded-md hover:bg-emerald-500/10 hover:border-emerald-500 transition-colors flex items-center justify-center gap-2 flex-1 sm:flex-initial"
         >
           <Beaker className="w-4 h-4" />
-          Prueba: Agregar 500kg
+          Prueba: +500kg
         </button>
       </div>
 

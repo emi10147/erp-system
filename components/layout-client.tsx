@@ -26,7 +26,7 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
           {/* Mobile Top Nav + Main Content */}
           <div className="flex-1 flex flex-col">
             {/* Mobile Navigation Bar */}
-            <div className="lg:hidden bg-zinc-950 border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
+            <div className="lg:hidden bg-zinc-900 border-b border-emerald-500/50 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-emerald-500 rounded flex items-center justify-center">
                   <span className="text-white text-xs font-bold">F</span>
@@ -37,8 +37,8 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
               {/* Mobile Menu Sheet */}
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <button className="p-2 hover:bg-zinc-900 rounded-md transition-colors">
-                    <Menu className="w-5 h-5 text-white" />
+                  <button className="p-2 hover:bg-emerald-500/20 rounded-md transition-colors border border-emerald-500/50">
+                    <Menu className="w-6 h-6 text-emerald-400" />
                   </button>
                 </SheetTrigger>
                 <SheetContent side="right" className="bg-zinc-950 border-zinc-800 p-0 w-3/4 max-w-sm">
