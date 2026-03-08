@@ -285,15 +285,15 @@ export default function InventoryPage() {
   }
 
   return (
-    <div className="p-4 lg:p-8">
+    <div className="w-full min-h-screen p-3 sm:p-4 lg:p-8">
       {/* Header - Responsive padding */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 lg:mb-8 gap-4">
-        <div>
-          <h1 className="text-2xl lg:text-4xl font-bold text-white mb-1 lg:mb-2 flex items-center gap-2">
-            <Package className="w-6 lg:w-8 h-6 lg:h-8 text-emerald-400" />
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-4 sm:mb-6 lg:mb-8 gap-4">
+        <div className="w-full">
+          <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold text-white mb-1 lg:mb-2 flex items-center gap-2">
+            <Package className="w-5 sm:w-6 lg:w-8 h-5 sm:h-6 lg:h-8 text-emerald-400" />
             Gestión de Inventario
           </h1>
-          <p className="text-xs lg:text-base text-zinc-400">Administra todos los productos y niveles de existencias</p>
+          <p className="text-xs sm:text-sm lg:text-base text-zinc-400">Administra todos los productos y niveles de existencias</p>
         </div>
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
@@ -546,13 +546,13 @@ export default function InventoryPage() {
       </AlertDialog>
 
       {/* Products Table - Desktop / Card List - Mobile */}
-      <div className="glass-card">
-        <div className="p-4 lg:p-6 border-b border-white/10">
-          <h2 className="text-lg lg:text-xl font-bold text-white">Productos</h2>
+      <div className="glass-card w-full">
+        <div className="p-3 sm:p-4 lg:p-6 border-b border-white/10">
+          <h2 className="text-base sm:text-lg lg:text-xl font-bold text-white">Productos</h2>
         </div>
 
         {isLoading ? (
-          <div className="p-4 lg:p-6">
+          <div className="p-3 sm:p-4 lg:p-6">
             <div className="space-y-3">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Skeleton key={i} className="h-12 w-full bg-zinc-800" />
@@ -560,12 +560,12 @@ export default function InventoryPage() {
             </div>
           </div>
         ) : products.length === 0 ? (
-          <div className="p-8 lg:p-12 flex flex-col items-center justify-center">
-            <div className="w-14 lg:w-16 h-14 lg:h-16 glass-card rounded-full flex items-center justify-center mb-4">
-              <Package className="w-6 lg:w-8 h-6 lg:h-8 text-zinc-500" />
+          <div className="p-6 sm:p-8 lg:p-12 flex flex-col items-center justify-center">
+            <div className="w-12 sm:w-14 lg:w-16 h-12 sm:h-14 lg:h-16 glass-card rounded-full flex items-center justify-center mb-4">
+              <Package className="w-5 sm:w-6 lg:w-8 h-5 sm:h-6 lg:h-8 text-zinc-500" />
             </div>
-            <h3 className="text-lg lg:text-xl font-bold text-white mb-2">Sin Productos</h3>
-            <p className="text-xs lg:text-base text-zinc-400 text-center mb-6 max-w-md">
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white mb-2">Sin Productos</h3>
+            <p className="text-xs sm:text-sm lg:text-base text-zinc-400 text-center mb-6 max-w-md">
               Tu inventario está vacío. Agrega tu primer producto para comenzar.
             </p>
             <Button className="bg-emerald-600 hover:bg-emerald-700 text-white min-h-[44px]">
@@ -576,7 +576,7 @@ export default function InventoryPage() {
         ) : (
           <>
             {/* Desktop Table View */}
-            <div className="hidden md:block overflow-x-auto">
+            <div className="hidden md:block overflow-x-auto w-full">
               <Table>
                 <TableHeader>
                   <TableRow className="border-white/10 hover:bg-transparent">
@@ -637,12 +637,12 @@ export default function InventoryPage() {
             </div>
 
             {/* Mobile Card View */}
-            <div className="md:hidden p-4 space-y-3">
+            <div className="md:hidden p-3 sm:p-4 space-y-3 w-full">
               {products.map((product) => (
-                <div key={product.id} className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 space-y-3">
-                  <div className="flex justify-between items-start gap-2">
+                <div key={product.id} className="bg-zinc-900 border border-zinc-800 rounded-lg p-3 sm:p-4 space-y-3 w-full">
+                  <div className="flex justify-between items-start gap-2 w-full">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-white text-sm truncate">{product.name}</h3>
+                      <h3 className="font-semibold text-white text-sm sm:text-base truncate">{product.name}</h3>
                       <p className="text-xs text-zinc-400 font-mono">{product.sku}</p>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">
