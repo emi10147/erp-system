@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/emili/OneDrive/ERP%20Factory/app/api/auth/verify/route.ts"],"sourcesContent":["import { cookies } from \"next/headers\"\r\n\r\nconst SESSION_TOKEN = \"erp-session-token\"\r\n\r\nexport async function GET() {\r\n  try {\r\n    const cookieStore = await cookies()\r\n    const token = cookieStore.get(SESSION_TOKEN)\r\n\r\n    if (token?.value) {\r\n      return Response.json({ authenticated: true })\r\n    } else {\r\n      return Response.json({ authenticated: false }, { status: 401 })\r\n    }\r\n  } catch (error) {\r\n    return Response.json({ authenticated: false }, { status: 401 })\r\n  }\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;;AAEA,MAAM,gBAAgB;AAEf,eAAe;IACpB,IAAI;QACF,MAAM,cAAc,MAAM,IAAA,4IAAO;QACjC,MAAM,QAAQ,YAAY,GAAG,CAAC;QAE9B,IAAI,OAAO,OAAO;YAChB,OAAO,SAAS,IAAI,CAAC;gBAAE,eAAe;YAAK;QAC7C,OAAO;YACL,OAAO,SAAS,IAAI,CAAC;gBAAE,eAAe;YAAM,GAAG;gBAAE,QAAQ;YAAI;QAC/D;IACF,EAAE,OAAO,OAAO;QACd,OAAO,SAAS,IAAI,CAAC;YAAE,eAAe;QAAM,GAAG;YAAE,QAAQ;QAAI;IAC/D;AACF"}}]
+}

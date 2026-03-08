@@ -15,7 +15,7 @@ if ("TURBOPACK compile-time truthy", 1) globalForPrisma.prisma = db;
 "[project]/app/actions/inventory.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-/* __next_internal_action_entry_do_not_use__ [{"40049b2e1b8ce5c52532972531966b4cf6b6eea4db":"updateProduct","40349b20567322254df6af2b7d37ff710f87d5c603":"deleteProduct","40368eb174ed885a7ffd7d02c8a10ff317434b0bde":"createProduct"},"",""] */ __turbopack_context__.s([
+/* __next_internal_action_entry_do_not_use__ [{"404bc9d5285b0ff210595ef44b7cc1eed1f61b1a10":"updateProduct","404e873b18bcda2faabb28b9c7f3da3f7a80b427fc":"deleteProduct","40f99851acaf51f4275ba87ed8f5cf3aef51b60d63":"createProduct"},"",""] */ __turbopack_context__.s([
     "createProduct",
     ()=>createProduct,
     "deleteProduct",
@@ -155,9 +155,9 @@ async function deleteProduct(productId) {
     updateProduct,
     deleteProduct
 ]);
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(createProduct, "40368eb174ed885a7ffd7d02c8a10ff317434b0bde", null);
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(updateProduct, "40049b2e1b8ce5c52532972531966b4cf6b6eea4db", null);
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(deleteProduct, "40349b20567322254df6af2b7d37ff710f87d5c603", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(createProduct, "40f99851acaf51f4275ba87ed8f5cf3aef51b60d63", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(updateProduct, "404bc9d5285b0ff210595ef44b7cc1eed1f61b1a10", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(deleteProduct, "404e873b18bcda2faabb28b9c7f3da3f7a80b427fc", null);
 }),
 "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript) <locals>", ((__turbopack_context__) => {
 "use strict";
@@ -172,11 +172,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$actions$2f$inventory$
 "use strict";
 
 __turbopack_context__.s([
-    "40049b2e1b8ce5c52532972531966b4cf6b6eea4db",
+    "404bc9d5285b0ff210595ef44b7cc1eed1f61b1a10",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$actions$2f$inventory$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["updateProduct"],
-    "40349b20567322254df6af2b7d37ff710f87d5c603",
+    "404e873b18bcda2faabb28b9c7f3da3f7a80b427fc",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$actions$2f$inventory$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["deleteProduct"],
-    "40368eb174ed885a7ffd7d02c8a10ff317434b0bde",
+    "40f99851acaf51f4275ba87ed8f5cf3aef51b60d63",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$actions$2f$inventory$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createProduct"]
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f2e$next$2d$internal$2f$server$2f$app$2f$inventory$2f$page$2f$actions$2e$js__$7b$__ACTIONS_MODULE0__$3d3e$__$225b$project$5d2f$app$2f$actions$2f$inventory$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$2922$__$7d$__$5b$app$2d$rsc$5d$__$28$server__actions__loader$2c$__ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i('[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => "[project]/app/actions/inventory.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <locals>');

@@ -1,51 +1,6 @@
 {
   "node": {
-    "40368eb174ed885a7ffd7d02c8a10ff317434b0bde": {
-      "workers": {
-        "app/inventory/page": {
-          "moduleId": "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "createProduct",
-          "filename": "app/actions/inventory.ts"
-        }
-      },
-      "layer": {
-        "app/inventory/page": "action-browser"
-      },
-      "filename": "app/actions/inventory.ts",
-      "exportedName": "createProduct"
-    },
-    "40049b2e1b8ce5c52532972531966b4cf6b6eea4db": {
-      "workers": {
-        "app/inventory/page": {
-          "moduleId": "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "updateProduct",
-          "filename": "app/actions/inventory.ts"
-        }
-      },
-      "layer": {
-        "app/inventory/page": "action-browser"
-      },
-      "filename": "app/actions/inventory.ts",
-      "exportedName": "updateProduct"
-    },
-    "40349b20567322254df6af2b7d37ff710f87d5c603": {
-      "workers": {
-        "app/inventory/page": {
-          "moduleId": "[project]/.next-internal/server/app/inventory/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions/inventory.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "deleteProduct",
-          "filename": "app/actions/inventory.ts"
-        }
-      },
-      "layer": {
-        "app/inventory/page": "action-browser"
-      },
-      "filename": "app/actions/inventory.ts",
-      "exportedName": "deleteProduct"
-    },
-    "0028ff7e774494f50ede74f0f3fbe73f34c1b72230": {
+    "00cacf7407af87ef1ed84b5e47825d046131304ad1": {
       "workers": {
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
@@ -62,5 +17,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "sSCE6uMCtIz+BE9dRkuPNQYdhlAOXrZWuPQSW0HIv60="
+  "encryptionKey": "8kOKqOi9Bm/5IZ7a8LjdsKYiYoO+Sbf+TZP/4j571v4="
 }

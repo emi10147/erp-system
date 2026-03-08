@@ -1,6 +1,6 @@
 {
   "node": {
-    "009224532839e58cc68d86f267b3e162b6e7f8444b": {
+    "00a5fcd5291bb29b713b2df45d1d635d5af372bc95": {
       "workers": {
         "app/page": {
           "moduleId": 57526,
@@ -15,7 +15,7 @@
       "filename": "app/actions.ts",
       "exportedName": "addToProductStock"
     },
-    "40ce0e7e29216e5f67fbdbdd2451d66c38d65dd9bd": {
+    "40e1b4807d76136109e54aacb670b7ed56204dde31": {
       "workers": {
         "app/inventory/page": {
           "moduleId": 28949,
@@ -30,7 +30,7 @@
       "filename": "app/actions/inventory.ts",
       "exportedName": "createProduct"
     },
-    "40274a085183561e738ff8987be0434fd45613821a": {
+    "4034d90ec39e7925199e4091103e082e4047e7b35d": {
       "workers": {
         "app/inventory/page": {
           "moduleId": 28949,
@@ -45,7 +45,7 @@
       "filename": "app/actions/inventory.ts",
       "exportedName": "updateProduct"
     },
-    "40bf7a84fd2eaf7e4ba7295e5342c2daf1ce1a9feb": {
+    "4026e8b5a1178d07bf917176e146e45973e4778086": {
       "workers": {
         "app/inventory/page": {
           "moduleId": 28949,
@@ -62,5 +62,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "lH9otDqEDH9Z5dcGwbOqT8J4o0Zf8XXzoBz1r6zY2SQ="
+  "encryptionKey": "rA9k+kKzx2ypep5zu+ZqUtQiwunF0YjWCe58qIogJt4="
 }

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/emili/OneDrive/ERP%20Factory/app/api/auth/logout/route.ts"],"sourcesContent":["import { cookies } from \"next/headers\"\r\n\r\nexport async function POST() {\r\n  try {\r\n    const cookieStore = await cookies()\r\n    cookieStore.delete(\"erp-session-token\")\r\n    return Response.json({ success: true })\r\n  } catch (error) {\r\n    return Response.json({ success: false }, { status: 500 })\r\n  }\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;;AAEO,eAAe;IACpB,IAAI;QACF,MAAM,cAAc,MAAM,IAAA,4IAAO;QACjC,YAAY,MAAM,CAAC;QACnB,OAAO,SAAS,IAAI,CAAC;YAAE,SAAS;QAAK;IACvC,EAAE,OAAO,OAAO;QACd,OAAO,SAAS,IAAI,CAAC;YAAE,SAAS;QAAM,GAAG;YAAE,QAAQ;QAAI;IACzD;AACF"}}]
+}

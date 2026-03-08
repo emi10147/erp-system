@@ -96,7 +96,7 @@ export default function Dashboard() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "COMPLETED":
-        return "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+        return "bg-blue-500/20 text-blue-400 border-blue-500/30"
       case "FRYING":
       case "PACKAGING":
         return "bg-amber-500/20 text-amber-400 border-amber-500/30"
@@ -128,7 +128,7 @@ export default function Dashboard() {
       {loading ? (
         <Skeleton className="h-10 w-20 bg-slate-800/50 rounded-lg" />
       ) : (
-        <p className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">{value}</p>
+        <p className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">{value}</p>
       )}
     </div>
   )
@@ -138,7 +138,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-4 lg:p-8 w-full min-h-screen">
+    <div className="p-4 lg:p-8 w-full min-h-screen bg-black">
       {/* Navigation Buttons - Mobile Friendly */}
       <div className="mb-8 flex flex-col sm:flex-row gap-4">
         <a href="/inventory" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
@@ -151,7 +151,7 @@ export default function Dashboard() {
         </a>
         <button
           onClick={handleTestStock}
-          className="px-6 py-3 glass-card text-emerald-300 rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial border-emerald-500/50 active:scale-95"
+          className="px-6 py-3 glass-card text-blue-300 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial border-blue-500/50 active:scale-95"
         >
           <Beaker className="w-5 h-5" strokeWidth={2.5} />
           <span>Prueba: +500kg</span>
@@ -165,10 +165,10 @@ export default function Dashboard() {
           <p className="text-sm lg:text-base text-slate-400 font-medium">Centro de Comando - Sistema Integrado de Manufactura</p>
         </div>
         <div className="glass-card-premium px-6 lg:px-8 py-4 lg:py-5 flex items-center gap-4 min-h-[60px] backdrop-blur-xl">
-          <Clock className="w-6 lg:w-7 h-6 lg:h-7 text-emerald-400 flex-shrink-0 animate-pulse" />
+          <Clock className="w-6 lg:w-7 h-6 lg:h-7 text-blue-400 flex-shrink-0 animate-pulse" />
           <div>
             <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Hora Actual</p>
-            <p className="text-2xl lg:text-3xl font-mono font-bold text-emerald-300">{currentTime}</p>
+            <p className="text-2xl lg:text-3xl font-mono font-bold text-blue-300">{currentTime}</p>
           </div>
         </div>
       </div>
@@ -273,14 +273,14 @@ export default function Dashboard() {
           <div className="flex items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl lg:text-3xl font-bold text-white flex items-center gap-3 mb-2">
-                <div className="p-2 bg-emerald-500/20 rounded-lg">
-                  <Zap className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
+                <div className="p-2 bg-blue-500/20 rounded-lg">
+                  <Zap className="w-6 h-6 text-blue-400" strokeWidth={2.5} />
                 </div>
                 Líneas Activas de Manufactura
               </h2>
               <p className="text-sm text-slate-400 font-medium">Batches en proceso de fabricación</p>
             </div>
-            <Button className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 text-white rounded-lg transition-all duration-300">
+            <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white rounded-lg transition-all duration-300">
               <Plus className="w-5 h-5 mr-2" />
               Nuevo Lote
             </Button>
@@ -306,7 +306,7 @@ export default function Dashboard() {
             <p className="text-slate-400 text-center mb-8 max-w-md font-medium">
               Todas las líneas de producción están inactivas. Crea un nuevo lote para iniciar la fabricación.
             </p>
-            <Button className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 text-white rounded-lg transition-all duration-300">
+            <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white rounded-lg transition-all duration-300">
               <Plus className="w-5 h-5 mr-2" />
               Lanzar Nuevo Lote
             </Button>
@@ -327,7 +327,7 @@ export default function Dashboard() {
               </TableHeader>
               <TableBody>
                 {batches.map((batch) => (
-                  <TableRow key={batch.id} className="border-white/5 hover:bg-emerald-500/5 transition-colors duration-200 table-row-hover">
+                  <TableRow key={batch.id} className="border-white/5 hover:bg-blue-500/5 transition-colors duration-200 table-row-hover">
                     <TableCell className="font-mono text-white font-semibold">{batch.batch_number}</TableCell>
                     <TableCell>
                       <Badge variant="outline" className={`${getStatusColor(batch.status)} border font-medium`}>

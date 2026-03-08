@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Plus, Package, Pencil, Trash } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Plus, Package, Pencil, Trash, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -52,6 +53,7 @@ interface Product {
 }
 
 export default function InventoryPage() {
+  const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSheetOpen, setIsSheetOpen] = useState(false)
@@ -211,7 +213,7 @@ export default function InventoryPage() {
       case "RAW_MATERIAL":
         return "bg-blue-500/20 text-blue-400 border-blue-500/30"
       case "FINISHED_GOOD":
-        return "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+        return "bg-blue-500/20 text-blue-400 border-blue-500/30"
       case "PACKAGING":
         return "bg-amber-500/20 text-amber-400 border-amber-500/30"
       default:
@@ -285,13 +287,22 @@ export default function InventoryPage() {
   }
 
   return (
-    <div className="w-full min-h-screen p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="w-full min-h-screen p-4 sm:p-6 lg:p-8 bg-black">
+      {/* Back Button - Mobile visible */}
+      <button
+        onClick={() => router.push("/")}
+        className="mb-6 flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors duration-300 group"
+      >
+        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
+        <span className="font-semibold text-sm">Volver al Panel</span>
+      </button>
+      
       {/* Header - Responsive padding */}
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 lg:mb-10 gap-6">
         <div className="w-full">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 lg:mb-3 flex items-center gap-3 tracking-tight">
-            <div className="p-2 bg-emerald-500/20 rounded-lg">
-              <Package className="w-7 sm:w-8 lg:w-9 h-7 sm:h-8 lg:h-9 text-emerald-400" strokeWidth={2.5} />
+            <div className="p-2 bg-blue-500/20 rounded-lg">
+              <Package className="w-7 sm:w-8 lg:w-9 h-7 sm:h-8 lg:h-9 text-blue-400" strokeWidth={2.5} />
             </div>
             Gestión de Inventario
           </h1>
@@ -299,7 +310,7 @@ export default function InventoryPage() {
         </div>
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
-            <Button className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 text-white w-full lg:w-auto min-h-[48px] rounded-lg transition-all duration-300">
+            <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white w-full lg:w-auto min-h-[48px] rounded-lg transition-all duration-300">
               <Plus className="w-5 h-5 mr-2" strokeWidth={2.5} />
               Agregar Producto
             </Button>
@@ -551,7 +562,7 @@ export default function InventoryPage() {
       <div className="glass-card-premium w-full">
         <div className="p-4 sm:p-6 lg:p-8 border-b border-white/10">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex items-center gap-3">
-            <div className="w-1 h-8 bg-gradient-to-b from-emerald-400 to-emerald-500 rounded-full"></div>
+            <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-blue-500 rounded-full"></div>
             Productos en Inventario
           </h2>
         </div>
@@ -573,7 +584,7 @@ export default function InventoryPage() {
             <p className="text-sm sm:text-base lg:text-lg text-slate-400 text-center mb-8 max-w-md font-medium">
               Tu inventario está vacío. Crea tu primer producto para comenzar a gestionar el inventario.
             </p>
-            <Button className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 text-white h-12 rounded-lg transition-all duration-300">
+            <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white h-12 rounded-lg transition-all duration-300">
               <Plus className="w-5 h-5 mr-2" />
               Agregar Primer Producto
             </Button>
@@ -596,7 +607,7 @@ export default function InventoryPage() {
                 </TableHeader>
                 <TableBody>
                   {products.map((product) => (
-                    <TableRow key={product.id} className="border-white/5 hover:bg-emerald-500/5 transition-colors duration-200 table-row-hover">
+                    <TableRow key={product.id} className="border-white/5 hover:bg-blue-500/5 transition-colors duration-200 table-row-hover">
                       <TableCell className="text-white font-medium text-xs lg:text-sm">{product.name}</TableCell>
                       <TableCell className="font-mono text-slate-300 text-xs lg:text-sm">{product.sku}</TableCell>
                       <TableCell className="text-xs lg:text-sm">
@@ -614,14 +625,14 @@ export default function InventoryPage() {
                           {getLocationLabel(product.location)}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right text-emerald-400 font-bold text-xs lg:text-sm">
+                      <TableCell className="text-right text-blue-400 font-bold text-xs lg:text-sm">
                         {product.current_stock}
                       </TableCell>
                       <TableCell className="text-xs lg:text-sm">
                         <div className="flex gap-2">
                           <button
                             onClick={() => openEditSheet(product)}
-                            className="p-2 text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all duration-200 min-h-[40px] min-w-[40px] flex items-center justify-center"
+                            className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 min-h-[40px] min-w-[40px] flex items-center justify-center"
                             title="Editar producto"
                           >
                             <Pencil className="w-4 h-4" strokeWidth={2.5} />
@@ -689,7 +700,7 @@ export default function InventoryPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-zinc-400">Existencias</p>
-                      <p className="text-lg font-bold text-emerald-400 mt-1">{product.current_stock} kg</p>
+                      <p className="text-lg font-bold text-blue-400 mt-1">{product.current_stock} kg</p>
                     </div>
                   </div>
                 </div>

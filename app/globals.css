@@ -6,10 +6,10 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-foreground;
+    @apply bg-black text-foreground;
   }
   * {
-    @apply border-slate-700/50 outline-emerald-500/50;
+    @apply border-slate-700/50 outline-blue-500/50;
   }
   html {
     @apply font-sans antialiased;
@@ -19,20 +19,20 @@
 @layer components {
   /* ===== GLASSMORPHISM CARDS ===== */
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/15 rounded-2xl shadow-2xl transition-all duration-300 hover:bg-white/8 hover:border-white/25 hover:shadow-emerald-500/10;
+    @apply bg-white/5 backdrop-blur-xl border border-white/15 rounded-2xl shadow-2xl transition-all duration-300 hover:bg-white/8 hover:border-white/25 hover:shadow-blue-500/10;
   }
 
   .glass-card-dark {
-    @apply bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-all duration-300 hover:bg-slate-800/60 hover:border-emerald-500/50;
+    @apply bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-all duration-300 hover:bg-slate-800/60 hover:border-blue-500/50;
   }
 
   .glass-card-premium {
-    @apply bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-2xl border border-emerald-500/30 rounded-2xl shadow-2xl hover:shadow-emerald-500/20 transition-all duration-300;
+    @apply bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-2xl border border-blue-500/30 rounded-2xl shadow-2xl hover:shadow-blue-500/20 transition-all duration-300;
   }
 
   /* ===== STATUS BADGES ===== */
   .status-active {
-    @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 rounded-lg px-3 py-1 text-sm font-medium;
+    @apply bg-blue-500/20 text-blue-300 border border-blue-500/50 rounded-lg px-3 py-1 text-sm font-medium;
   }
 
   .status-pending {
@@ -45,11 +45,11 @@
 
   /* ===== BUTTONS ===== */
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 active:scale-95;
+    @apply px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 active:scale-95;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-slate-700/60 text-slate-100 rounded-xl font-semibold border border-slate-600/50 transition-all duration-300 hover:bg-slate-600/80 hover:border-emerald-500/50;
+    @apply px-6 py-3 bg-slate-700/60 text-slate-100 rounded-xl font-semibold border border-slate-600/50 transition-all duration-300 hover:bg-slate-600/80 hover:border-blue-500/50;
   }
 
   /* ===== GRID UTILITIES ===== */
@@ -59,12 +59,12 @@
 
   /* ===== TABLE ROWS ===== */
   .table-row-hover {
-    @apply transition-all duration-200 hover:bg-emerald-500/5 hover:border-l-2 hover:border-emerald-500;
+    @apply transition-all duration-200 hover:bg-blue-500/5 hover:border-l-2 hover:border-blue-500;
   }
 
   /* ===== INPUTS ===== */
   .input-modern {
-    @apply bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 text-slate-100 placeholder-slate-400 transition-all duration-300 focus:bg-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20;
+    @apply bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 text-slate-100 placeholder-slate-400 transition-all duration-300 focus:bg-slate-800 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20;
   }
 }
 

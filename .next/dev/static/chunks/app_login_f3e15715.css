@@ -1,0 +1,54 @@
+/* [project]/app/login.css [app-client] (css) */
+.animated-title {
+  background: linear-gradient(90deg, #3b82f6, #0ea5e9, #06b6d4, #3b82f6) 0 0 / 200% 200%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: 6s infinite gradientFlow, .8s ease-out slideUp;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0%;
+  }
+
+  50% {
+    background-position: 100%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInStagger {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: 1s ease-out .3s both fadeInStagger;
+}
+
+.animate-fade-in-delayed {
+  animation: 1s ease-out .6s both fadeInStagger;
+}
+
+/*# sourceMappingURL=app_login_f3e15715.css.map*/

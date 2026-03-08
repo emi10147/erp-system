@@ -1,20 +1,92 @@
-[00:00:00.633] Server  LOG     ✓ Ready in 392ms
-[00:00:01.014] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.088] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.648] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.823] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:03.022] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:03.234] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:03.428] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:07.037] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:08.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:26.321] Server  LOG     ✓ Compiled in 483ms
-[00:00:34.799] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:39.055] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:55.890] Server  LOG     ✓ Compiled in 72ms
-[00:07:00.406] Server  LOG     ✓ Compiled in 61ms
-[00:07:18.923] Server  LOG     ✓ Compiled in 73ms
-[00:07:40.862] Server  LOG     ✓ Compiled in 58ms
-[00:08:39.489] Server  LOG     ✓ Compiled in 60ms
-[00:08:55.156] Server  LOG     ✓ Compiled in 62ms
-[00:11:19.107] Server  LOG     ✓ Compiled in 55ms
+[00:00:00.588] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.677] Server  LOG     ✓ Ready in 449ms
+[00:00:02.045] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.157] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.168] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.288] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:00:02.288] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:00:02.293] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.426] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.431] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.459] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.495] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.569] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.646] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.689] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.711] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.768] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.786] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:17.445] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:17.588] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:00:17.588] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:00:18.487] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
