@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Plus, Package, Pencil, Trash, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { AnalyticsCharts } from "@/components/analytics-charts"
 import {
   Table,
   TableBody,
@@ -50,23 +51,64 @@ interface Product {
   type: "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT"
   location?: "CUARTO_FRIO_1" | "CUARTO_FRIO_2" | "ALMACEN_GENERAL"
   current_stock: number
+  unit_cost?: number
+  provider?: string
 }
+
+type TabType = "PACKAGING" | "RAW_MATERIAL" | "FINISHED_GOOD"
+
+const TABS: { id: TabType; label: string; description: string }[] = [
+  { id: "PACKAGING", label: "Insumos", description: "Aceite, sal y empaques" },
+  { id: "RAW_MATERIAL", label: "Materia Prima", description: "Papas crudas y materiales" },
+  { id: "FINISHED_GOOD", label: "Producto Terminado", description: "Productos listos para vender" },
+]
 
 export default function InventoryPage() {
   const router = useRouter()
+  const [activeTab, setActiveTab] = useState<TabType>("PACKAGING")
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [isAddInsumoOpen, setIsAddInsumoOpen] = useState(false)
+  const [isAddMateriaOpen, setIsAddMateriaOpen] = useState(false)
+  const [isAddProductoOpen, setIsAddProductoOpen] = useState(false)
   const [isEditSheetOpen, setIsEditSheetOpen] = useState(false)
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false)
   const [productToDelete, setProductToDelete] = useState<Product | null>(null)
-  const [formData, setFormData] = useState({
+  
+  // Insumo form state
+  const [insumoFormData, setInsumoFormData] = useState({
     name: "",
     sku: "",
-    category: "",
+    category: "PACKAGING" as const,
+    type: "NORMAL_CUT",
+    location: "ALMACEN_GENERAL" as const,
+    current_stock: "",
+    unit_cost: "",
+    provider: "",
+  })
+
+  // Materia Prima form state
+  const [materiaFormData, setMateriaFormData] = useState({
+    name: "",
+    sku: "",
+    category: "RAW_MATERIAL" as const,
     type: "NORMAL_CUT",
     location: "",
     current_stock: "",
+    unit_cost: "",
+    provider: "",
+  })
+
+  // Producto Terminado form state
+  const [productoFormData, setProductoFormData] = useState({
+    name: "",
+    sku: "",
+    category: "FINISHED_GOOD" as const,
+    type: "NORMAL_CUT",
+    location: "",
+    current_stock: "",
+    unit_cost: "",
+    provider: "",
   })
   const [editFormData, setEditFormData] = useState({
     id: "",
@@ -76,6 +118,8 @@ export default function InventoryPage() {
     type: "NORMAL_CUT",
     location: "",
     current_stock: "",
+    unit_cost: "",
+    provider: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -98,27 +142,31 @@ export default function InventoryPage() {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const filteredProducts = products.filter((p) => p.category === activeTab)
+
+  const handleInsumoSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.name || !formData.sku || !formData.category || !formData.current_stock) {
-      alert("Por favor, completa todos los campos")
+    if (!insumoFormData.name || !insumoFormData.sku || !insumoFormData.current_stock) {
+      alert("Por favor, completa todos los campos requeridos")
       return
     }
 
     try {
       setIsSubmitting(true)
       const result = await createProduct({
-        name: formData.name,
-        sku: formData.sku,
-        category: formData.category as "RAW_MATERIAL" | "FINISHED_GOOD" | "PACKAGING",
-        type: formData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
-        location: formData.location as "CUARTO_FRIO_1" | "CUARTO_FRIO_2" | "ALMACEN_GENERAL" || undefined,
-        current_stock: parseInt(formData.current_stock),
+        name: insumoFormData.name,
+        sku: insumoFormData.sku,
+        category: "PACKAGING",
+        type: insumoFormData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
+        location: "ALMACEN_GENERAL",
+        current_stock: parseInt(insumoFormData.current_stock),
+        unit_cost: insumoFormData.unit_cost ? parseFloat(insumoFormData.unit_cost) : undefined,
+        provider: insumoFormData.provider || undefined,
       })
 
       if (result.success) {
-        setFormData({ name: "", sku: "", category: "", type: "NORMAL_CUT", location: "", current_stock: "" })
-        setIsSheetOpen(false)
+        setInsumoFormData({ name: "", sku: "", category: "PACKAGING", type: "NORMAL_CUT", location: "ALMACEN_GENERAL", current_stock: "", unit_cost: "", provider: "" })
+        setIsAddInsumoOpen(false)
         fetchProducts()
         alert(result.message)
       } else {
@@ -126,7 +174,79 @@ export default function InventoryPage() {
       }
     } catch (error) {
       console.error("Error:", error)
-      alert("Error al crear el producto")
+      alert("Error al crear el insumo")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleMateriaSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!materiaFormData.name || !materiaFormData.sku || !materiaFormData.current_stock) {
+      alert("Por favor, completa todos los campos requeridos")
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      const result = await createProduct({
+        name: materiaFormData.name,
+        sku: materiaFormData.sku,
+        category: "RAW_MATERIAL",
+        type: materiaFormData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
+        location: undefined,
+        current_stock: parseInt(materiaFormData.current_stock),
+        unit_cost: undefined,
+        provider: undefined,
+      })
+
+      if (result.success) {
+        setMateriaFormData({ name: "", sku: "", category: "RAW_MATERIAL", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "" })
+        setIsAddMateriaOpen(false)
+        fetchProducts()
+        alert(result.message)
+      } else {
+        alert(result.message)
+      }
+    } catch (error) {
+      console.error("Error:", error)
+      alert("Error al crear la materia prima")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleProductoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!productoFormData.name || !productoFormData.sku || !productoFormData.current_stock || !productoFormData.location) {
+      alert("Por favor, completa todos los campos requeridos")
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      const result = await createProduct({
+        name: productoFormData.name,
+        sku: productoFormData.sku,
+        category: "FINISHED_GOOD",
+        type: productoFormData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
+        location: productoFormData.location as "CUARTO_FRIO_1" | "CUARTO_FRIO_2" | "ALMACEN_GENERAL" || undefined,
+        current_stock: parseInt(productoFormData.current_stock),
+        unit_cost: undefined,
+        provider: undefined,
+      })
+
+      if (result.success) {
+        setProductoFormData({ name: "", sku: "", category: "FINISHED_GOOD", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "" })
+        setIsAddProductoOpen(false)
+        fetchProducts()
+        alert(result.message)
+      } else {
+        alert(result.message)
+      }
+    } catch (error) {
+      console.error("Error:", error)
+      alert("Error al crear el producto terminado")
     } finally {
       setIsSubmitting(false)
     }
@@ -141,6 +261,8 @@ export default function InventoryPage() {
       type: product.type,
       location: product.location || "",
       current_stock: product.current_stock.toString(),
+      unit_cost: product.unit_cost?.toString() || "",
+      provider: product.provider || "",
     })
     setIsEditSheetOpen(true)
   }
@@ -148,7 +270,7 @@ export default function InventoryPage() {
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!editFormData.name || !editFormData.sku || !editFormData.category || !editFormData.current_stock) {
-      alert("Por favor, completa todos los campos")
+      alert("Por favor, completa todos los campos requeridos")
       return
     }
 
@@ -162,10 +284,12 @@ export default function InventoryPage() {
         type: editFormData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
         location: editFormData.location as "CUARTO_FRIO_1" | "CUARTO_FRIO_2" | "ALMACEN_GENERAL" || undefined,
         current_stock: parseInt(editFormData.current_stock),
+        unit_cost: editFormData.unit_cost ? parseFloat(editFormData.unit_cost) : undefined,
+        provider: editFormData.provider || undefined,
       })
 
       if (result.success) {
-        setEditFormData({ id: "", name: "", sku: "", category: "", type: "NORMAL_CUT", location: "", current_stock: "" })
+        setEditFormData({ id: "", name: "", sku: "", category: "", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "" })
         setIsEditSheetOpen(false)
         fetchProducts()
         alert(result.message)
@@ -205,32 +329,6 @@ export default function InventoryPage() {
       alert("Error al eliminar el producto")
     } finally {
       setIsSubmitting(false)
-    }
-  }
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "RAW_MATERIAL":
-        return "bg-blue-500/20 text-blue-400 border-blue-500/30"
-      case "FINISHED_GOOD":
-        return "bg-blue-500/20 text-blue-400 border-blue-500/30"
-      case "PACKAGING":
-        return "bg-amber-500/20 text-amber-400 border-amber-500/30"
-      default:
-        return "bg-zinc-500/20 text-zinc-400 border-zinc-500/30"
-    }
-  }
-
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case "RAW_MATERIAL":
-        return "Materia Prima"
-      case "FINISHED_GOOD":
-        return "Producto Terminado"
-      case "PACKAGING":
-        return "Empaque"
-      default:
-        return category
     }
   }
 
@@ -288,7 +386,7 @@ export default function InventoryPage() {
 
   return (
     <div className="w-full min-h-screen p-4 sm:p-6 lg:p-8 bg-black">
-      {/* Back Button - Mobile visible */}
+      {/* Back Button */}
       <button
         onClick={() => router.push("/")}
         className="mb-6 flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors duration-300 group"
@@ -296,8 +394,8 @@ export default function InventoryPage() {
         <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
         <span className="font-semibold text-sm">Volver al Panel</span>
       </button>
-      
-      {/* Header - Responsive padding */}
+
+      {/* Header */}
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 lg:mb-10 gap-6">
         <div className="w-full">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 lg:mb-3 flex items-center gap-3 tracking-tight">
@@ -306,72 +404,160 @@ export default function InventoryPage() {
             </div>
             Gestión de Inventario
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg text-slate-400 font-medium">Administra todos los productos y niveles de existencias en tiempo real</p>
+          <p className="text-sm sm:text-base lg:text-lg text-slate-400 font-medium">Administra productos separados por categoría</p>
         </div>
-        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+      </div>
+
+      {/* Agregar Producto Buttons */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        {/* Agregar Insumo */}
+        <Sheet open={isAddInsumoOpen} onOpenChange={setIsAddInsumoOpen}>
           <SheetTrigger asChild>
-            <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white w-full lg:w-auto min-h-[48px] rounded-lg transition-all duration-300">
-              <Plus className="w-5 h-5 mr-2" strokeWidth={2.5} />
-              Agregar Producto
+            <Button className="bg-gradient-to-r from-blue-700 to-cyan-500 hover:shadow-lg hover:shadow-cyan-400/50 text-white h-auto rounded-lg transition-all duration-300 flex flex-col py-4">
+              <Plus className="w-5 h-5 mb-2" strokeWidth={2.5} />
+              <span>Agregar Insumo</span>
+              <span className="text-xs text-cyan-100 font-normal">Aceite, sal y empaques</span>
             </Button>
           </SheetTrigger>
           <SheetContent className="bg-gradient-to-b from-slate-900 to-slate-950 border-slate-700/50 w-full sm:max-w-md shadow-2xl">
             <SheetHeader className="mt-6">
-              <SheetTitle className="text-white text-2xl font-bold">Agregar Nuevo Producto</SheetTitle>
+              <SheetTitle className="text-white text-2xl font-bold">Agregar Insumo</SheetTitle>
               <SheetDescription className="text-slate-400 font-medium">
-                Crea un nuevo producto en tu inventario
+                Crea un nuevo insumo (aceite, sal, empaques, etc.)
               </SheetDescription>
             </SheetHeader>
-            <form onSubmit={handleSubmit} className="space-y-5 mt-8 max-h-[calc(100vh-150px)] overflow-y-auto">
+            <form onSubmit={handleInsumoSubmit} className="space-y-5 mt-8 max-h-[calc(100vh-150px)] overflow-y-auto">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-slate-300 text-sm font-semibold">
-                  Nombre del Producto
+                <Label htmlFor="insumo-name" className="text-slate-300 text-sm font-semibold">
+                  Nombre del Insumo
                 </Label>
                 <Input
-                  id="name"
-                  placeholder="Ej: Papas Fritas"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  id="insumo-name"
+                  placeholder="Ej: Aceite Vegetal"
+                  value={insumoFormData.name}
+                  onChange={(e) => setInsumoFormData({ ...insumoFormData, name: e.target.value })}
                   className="input-modern"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sku" className="text-slate-300 text-sm font-semibold">
+                <Label htmlFor="insumo-sku" className="text-slate-300 text-sm font-semibold">
                   SKU
                 </Label>
                 <Input
-                  id="sku"
-                  placeholder="Ej: POT-001"
-                  value={formData.sku}
-                  onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                  id="insumo-sku"
+                  placeholder="Ej: INS-001"
+                  value={insumoFormData.sku}
+                  onChange={(e) => setInsumoFormData({ ...insumoFormData, sku: e.target.value })}
                   className="input-modern"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="category" className="text-slate-300 text-sm font-semibold">
-                  Categoría
+                <Label htmlFor="insumo-stock" className="text-slate-300 text-sm font-semibold">
+                  Existencias
                 </Label>
-                <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-                  <SelectTrigger className="input-modern">
-                    <SelectValue placeholder="Selecciona una categoría" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-slate-800/90 border-slate-700/50">
-                    <SelectItem value="RAW_MATERIAL" className="text-white">Materia Prima</SelectItem>
-                    <SelectItem value="FINISHED_GOOD" className="text-white">Producto Terminado</SelectItem>
-                    <SelectItem value="PACKAGING" className="text-white">Empaque</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Input
+                  id="insumo-stock"
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  value={insumoFormData.current_stock}
+                  onChange={(e) => setInsumoFormData({ ...insumoFormData, current_stock: e.target.value })}
+                  className="input-modern"
+                />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="type" className="text-slate-300 text-sm font-semibold">
-                  Tipo de Corte
+                <Label htmlFor="insumo-unitCost" className="text-slate-300 text-sm font-semibold">
+                  Costo Unitario
                 </Label>
-                <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
+                <Input
+                  id="insumo-unitCost"
+                  type="number"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                  value={insumoFormData.unit_cost}
+                  onChange={(e) => setInsumoFormData({ ...insumoFormData, unit_cost: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="insumo-provider" className="text-slate-300 text-sm font-semibold">
+                  Proveedor
+                </Label>
+                <Input
+                  id="insumo-provider"
+                  placeholder="Ej: Proveedor A"
+                  value={insumoFormData.provider}
+                  onChange={(e) => setInsumoFormData({ ...insumoFormData, provider: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full btn-primary h-12"
+              >
+                {isSubmitting ? "Guardando..." : "Crear Insumo"}
+              </Button>
+            </form>
+          </SheetContent>
+        </Sheet>
+
+        {/* Agregar Materia Prima */}
+        <Sheet open={isAddMateriaOpen} onOpenChange={setIsAddMateriaOpen}>
+          <SheetTrigger asChild>
+            <Button className="bg-gradient-to-r from-blue-700 to-cyan-500 hover:shadow-lg hover:shadow-cyan-400/50 text-white h-auto rounded-lg transition-all duration-300 flex flex-col py-4">
+              <Plus className="w-5 h-5 mb-2" strokeWidth={2.5} />
+              <span>Agregar Materia Prima</span>
+              <span className="text-xs text-cyan-100 font-normal">Papas y materiales</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="bg-gradient-to-b from-slate-900 to-slate-950 border-slate-700/50 w-full sm:max-w-md shadow-2xl">
+            <SheetHeader className="mt-6">
+              <SheetTitle className="text-white text-2xl font-bold">Agregar Materia Prima</SheetTitle>
+              <SheetDescription className="text-slate-400 font-medium">
+                Crea un nuevo lote de materia prima
+              </SheetDescription>
+            </SheetHeader>
+            <form onSubmit={handleMateriaSubmit} className="space-y-5 mt-8 max-h-[calc(100vh-150px)] overflow-y-auto">
+              <div className="space-y-2">
+                <Label htmlFor="materia-name" className="text-slate-300 text-sm font-semibold">
+                  Nombre de la Materia Prima
+                </Label>
+                <Input
+                  id="materia-name"
+                  placeholder="Ej: Papas Russet"
+                  value={materiaFormData.name}
+                  onChange={(e) => setMateriaFormData({ ...materiaFormData, name: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="materia-sku" className="text-slate-300 text-sm font-semibold">
+                  SKU
+                </Label>
+                <Input
+                  id="materia-sku"
+                  placeholder="Ej: MAT-001"
+                  value={materiaFormData.sku}
+                  onChange={(e) => setMateriaFormData({ ...materiaFormData, sku: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="materia-type" className="text-slate-300 text-sm font-semibold">
+                  Variedad
+                </Label>
+                <Select value={materiaFormData.type} onValueChange={(value) => setMateriaFormData({ ...materiaFormData, type: value })}>
                   <SelectTrigger className="input-modern">
-                    <SelectValue placeholder="Selecciona un tipo de corte" />
+                    <SelectValue placeholder="Selecciona variedad" />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800/90 border-slate-700/50">
                     <SelectItem value="CRINKLE_CUT" className="text-white">Corte Ondulado</SelectItem>
@@ -382,34 +568,118 @@ export default function InventoryPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location" className="text-slate-300 text-sm font-semibold">
-                  Ubicación
+                <Label htmlFor="materia-stock" className="text-slate-300 text-sm font-semibold">
+                  Existencias (KG)
                 </Label>
-                <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
+                <Input
+                  id="materia-stock"
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  value={materiaFormData.current_stock}
+                  onChange={(e) => setMateriaFormData({ ...materiaFormData, current_stock: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full btn-primary h-12"
+              >
+                {isSubmitting ? "Guardando..." : "Crear Materia Prima"}
+              </Button>
+            </form>
+          </SheetContent>
+        </Sheet>
+
+        {/* Agregar Producto Terminado */}
+        <Sheet open={isAddProductoOpen} onOpenChange={setIsAddProductoOpen}>
+          <SheetTrigger asChild>
+            <Button className="bg-gradient-to-r from-blue-700 to-cyan-500 hover:shadow-lg hover:shadow-cyan-400/50 text-white h-auto rounded-lg transition-all duration-300 flex flex-col py-4">
+              <Plus className="w-5 h-5 mb-2" strokeWidth={2.5} />
+              <span>Agregar Producto</span>
+              <span className="text-xs text-cyan-100 font-normal">Papas fritas listas para vender</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="bg-gradient-to-b from-slate-900 to-slate-950 border-slate-700/50 w-full sm:max-w-md shadow-2xl">
+            <SheetHeader className="mt-6">
+              <SheetTitle className="text-white text-2xl font-bold">Agregar Producto Terminado</SheetTitle>
+              <SheetDescription className="text-slate-400 font-medium">
+                Crea un nuevo producto listo para vender
+              </SheetDescription>
+            </SheetHeader>
+            <form onSubmit={handleProductoSubmit} className="space-y-5 mt-8 max-h-[calc(100vh-150px)] overflow-y-auto">
+              <div className="space-y-2">
+                <Label htmlFor="producto-name" className="text-slate-300 text-sm font-semibold">
+                  Nombre del Producto
+                </Label>
+                <Input
+                  id="producto-name"
+                  placeholder="Ej: Papas Fritas Premium 500g"
+                  value={productoFormData.name}
+                  onChange={(e) => setProductoFormData({ ...productoFormData, name: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="producto-sku" className="text-slate-300 text-sm font-semibold">
+                  SKU
+                </Label>
+                <Input
+                  id="producto-sku"
+                  placeholder="Ej: FIN-001"
+                  value={productoFormData.sku}
+                  onChange={(e) => setProductoFormData({ ...productoFormData, sku: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="producto-type" className="text-slate-300 text-sm font-semibold">
+                  Tipo de Corte
+                </Label>
+                <Select value={productoFormData.type} onValueChange={(value) => setProductoFormData({ ...productoFormData, type: value })}>
                   <SelectTrigger className="input-modern">
-                    <SelectValue placeholder="Selecciona una ubicación" />
+                    <SelectValue placeholder="Selecciona tipo de corte" />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800/90 border-slate-700/50">
-                    <SelectItem value="CUARTO_FRIO_1" className="text-white">Cuarto Frío 1</SelectItem>
-                    <SelectItem value="CUARTO_FRIO_2" className="text-white">Cuarto Frío 2</SelectItem>
-                    <SelectItem value="ALMACEN_GENERAL" className="text-white">Almacén General</SelectItem>
+                    <SelectItem value="CRINKLE_CUT" className="text-white">Corte Ondulado</SelectItem>
+                    <SelectItem value="STEAKHOUSE_CUT" className="text-white">Corte Steakhouse</SelectItem>
+                    <SelectItem value="NORMAL_CUT" className="text-white">Corte Normal</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="stock" className="text-slate-300 text-sm font-semibold">
-                  Existencias Iniciales (kg)
+                <Label htmlFor="producto-stock" className="text-slate-300 text-sm font-semibold">
+                  Existencias
                 </Label>
                 <Input
-                  id="stock"
+                  id="producto-stock"
                   type="number"
                   placeholder="0"
                   min="0"
-                  value={formData.current_stock}
-                  onChange={(e) => setFormData({ ...formData, current_stock: e.target.value })}
+                  value={productoFormData.current_stock}
+                  onChange={(e) => setProductoFormData({ ...productoFormData, current_stock: e.target.value })}
                   className="input-modern"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="producto-location" className="text-slate-300 text-sm font-semibold">
+                  Ubicación (Cuarto Frío)
+                </Label>
+                <Select value={productoFormData.location} onValueChange={(value) => setProductoFormData({ ...productoFormData, location: value })}>
+                  <SelectTrigger className="input-modern">
+                    <SelectValue placeholder="Selecciona cuarto frío" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800/90 border-slate-700/50">
+                    <SelectItem value="CUARTO_FRIO_1" className="text-white">Cuarto Frío 1</SelectItem>
+                    <SelectItem value="CUARTO_FRIO_2" className="text-white">Cuarto Frío 2</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <Button
@@ -424,7 +694,7 @@ export default function InventoryPage() {
         </Sheet>
       </div>
 
-      {/* Edit Product Sheet */}
+      {/* Edit Sheet */}
       <Sheet open={isEditSheetOpen} onOpenChange={setIsEditSheetOpen}>
         <SheetContent className="bg-gradient-to-b from-slate-900 to-slate-950 border-slate-700/50 w-full sm:max-w-md shadow-2xl">
           <SheetHeader className="mt-6">
@@ -464,53 +734,58 @@ export default function InventoryPage() {
               <Label htmlFor="edit-category" className="text-slate-300 text-sm font-semibold">
                 Categoría
               </Label>
-              <Select value={editFormData.category} onValueChange={(value) => setEditFormData({ ...editFormData, category: value })}>
+              <Select value={editFormData.category} onValueChange={(value) => setEditFormData({ ...editFormData, category: value, location: value === "PACKAGING" ? "ALMACEN_GENERAL" : editFormData.location })}>
                 <SelectTrigger className="input-modern">
                   <SelectValue placeholder="Selecciona una categoría" />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-800/90 border-slate-700/50">
+                  <SelectItem value="PACKAGING" className="text-white">Insumos</SelectItem>
                   <SelectItem value="RAW_MATERIAL" className="text-white">Materia Prima</SelectItem>
                   <SelectItem value="FINISHED_GOOD" className="text-white">Producto Terminado</SelectItem>
-                  <SelectItem value="PACKAGING" className="text-white">Empaque</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="edit-type" className="text-slate-300 text-sm font-semibold">
-                Tipo de Corte
-              </Label>
-              <Select value={editFormData.type} onValueChange={(value) => setEditFormData({ ...editFormData, type: value })}>
-                <SelectTrigger className="input-modern">
-                  <SelectValue placeholder="Selecciona un tipo de corte" />
-                </SelectTrigger>
-                <SelectContent className="bg-slate-800/90 border-slate-700/50">
-                  <SelectItem value="CRINKLE_CUT" className="text-white">Corte Ondulado</SelectItem>
-                  <SelectItem value="STEAKHOUSE_CUT" className="text-white">Corte Steakhouse</SelectItem>
-                  <SelectItem value="NORMAL_CUT" className="text-white">Corte Normal</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            {/* Type of Cut - Only for RAW_MATERIAL and FINISHED_GOOD */}
+            {(editFormData.category === "RAW_MATERIAL" || editFormData.category === "FINISHED_GOOD") && (
+              <div className="space-y-2">
+                <Label htmlFor="edit-type" className="text-slate-300 text-sm font-semibold">
+                  {editFormData.category === "RAW_MATERIAL" ? "Variedad" : "Tipo de Corte"}
+                </Label>
+                <Select value={editFormData.type} onValueChange={(value) => setEditFormData({ ...editFormData, type: value })}>
+                  <SelectTrigger className="input-modern">
+                    <SelectValue placeholder={editFormData.category === "RAW_MATERIAL" ? "Selecciona variedad" : "Selecciona tipo de corte"} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800/90 border-slate-700/50">
+                    <SelectItem value="CRINKLE_CUT" className="text-white">Corte Ondulado</SelectItem>
+                    <SelectItem value="STEAKHOUSE_CUT" className="text-white">Corte Steakhouse</SelectItem>
+                    <SelectItem value="NORMAL_CUT" className="text-white">Corte Normal</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
-            <div className="space-y-2">
-              <Label htmlFor="edit-location" className="text-slate-300 text-sm font-semibold">
-                Ubicación
-              </Label>
-              <Select value={editFormData.location} onValueChange={(value) => setEditFormData({ ...editFormData, location: value })}>
-                <SelectTrigger className="input-modern">
-                  <SelectValue placeholder="Selecciona una ubicación" />
-                </SelectTrigger>
-                <SelectContent className="bg-slate-800/90 border-slate-700/50">
-                  <SelectItem value="CUARTO_FRIO_1" className="text-white">Cuarto Frío 1</SelectItem>
-                  <SelectItem value="CUARTO_FRIO_2" className="text-white">Cuarto Frío 2</SelectItem>
-                  <SelectItem value="ALMACEN_GENERAL" className="text-white">Almacén General</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            {/* Location - Only for FINISHED_GOOD */}
+            {editFormData.category === "FINISHED_GOOD" && (
+              <div className="space-y-2">
+                <Label htmlFor="edit-location" className="text-slate-300 text-sm font-semibold">
+                  Ubicación (Cuarto Frío)
+                </Label>
+                <Select value={editFormData.location} onValueChange={(value) => setEditFormData({ ...editFormData, location: value })}>
+                  <SelectTrigger className="input-modern">
+                    <SelectValue placeholder="Selecciona cuarto frío" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800/90 border-slate-700/50">
+                    <SelectItem value="CUARTO_FRIO_1" className="text-white">Cuarto Frío 1</SelectItem>
+                    <SelectItem value="CUARTO_FRIO_2" className="text-white">Cuarto Frío 2</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="edit-stock" className="text-slate-300 text-sm font-semibold">
-                Existencias (kg)
+                Existencias {editFormData.category === "RAW_MATERIAL" ? "(KG)" : "(kg)"}
               </Label>
               <Input
                 id="edit-stock"
@@ -523,6 +798,41 @@ export default function InventoryPage() {
               />
             </div>
 
+            {/* Unit Cost - Only for PACKAGING */}
+            {editFormData.category === "PACKAGING" && (
+              <div className="space-y-2">
+                <Label htmlFor="edit-unitCost" className="text-slate-300 text-sm font-semibold">
+                  Costo Unitario
+                </Label>
+                <Input
+                  id="edit-unitCost"
+                  type="number"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                  value={editFormData.unit_cost}
+                  onChange={(e) => setEditFormData({ ...editFormData, unit_cost: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+            )}
+
+            {/* Provider - Only for PACKAGING */}
+            {editFormData.category === "PACKAGING" && (
+              <div className="space-y-2">
+                <Label htmlFor="edit-provider" className="text-slate-300 text-sm font-semibold">
+                  Proveedor
+                </Label>
+                <Input
+                  id="edit-provider"
+                  placeholder="Ej: Proveedor A"
+                  value={editFormData.provider}
+                  onChange={(e) => setEditFormData({ ...editFormData, provider: e.target.value })}
+                  className="input-modern"
+                />
+              </div>
+            )}
+
             <Button
               type="submit"
               disabled={isSubmitting}
@@ -534,7 +844,7 @@ export default function InventoryPage() {
         </SheetContent>
       </Sheet>
 
-      {/* Delete Confirmation Alert */}
+      {/* Delete Alert */}
       <AlertDialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
         <AlertDialogContent className="bg-gradient-to-b from-slate-900 to-slate-950 border-slate-700/50 shadow-2xl">
           <AlertDialogHeader>
@@ -558,15 +868,31 @@ export default function InventoryPage() {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Products Table - Desktop / Card List - Mobile */}
+      {/* Tabs Section */}
       <div className="glass-card-premium w-full">
+        {/* Tab Navigation */}
         <div className="p-4 sm:p-6 lg:p-8 border-b border-white/10">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex items-center gap-3">
-            <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-blue-500 rounded-full"></div>
-            Productos en Inventario
-          </h2>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-2 overflow-x-auto">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
+                  activeTab === tab.id
+                    ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/30"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-blue-500/10 border border-blue-500/20"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs sm:text-sm text-slate-500 mt-3">
+            {TABS.find((t) => t.id === activeTab)?.description}
+          </p>
         </div>
 
+        {/* Content Area */}
         {isLoading ? (
           <div className="p-4 sm:p-6 lg:p-8">
             <div className="space-y-3">
@@ -575,19 +901,15 @@ export default function InventoryPage() {
               ))}
             </div>
           </div>
-        ) : products.length === 0 ? (
+        ) : filteredProducts.length === 0 ? (
           <div className="p-8 sm:p-12 lg:p-16 flex flex-col items-center justify-center">
             <div className="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 glass-card rounded-2xl flex items-center justify-center mb-6">
               <Package className="w-8 sm:w-10 lg:w-12 h-8 sm:h-10 lg:h-12 text-slate-500" strokeWidth={1.5} />
             </div>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">Sin Productos</h3>
             <p className="text-sm sm:text-base lg:text-lg text-slate-400 text-center mb-8 max-w-md font-medium">
-              Tu inventario está vacío. Crea tu primer producto para comenzar a gestionar el inventario.
+              No hay productos en esta categoría. Crea uno nuevo para comenzar.
             </p>
-            <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white h-12 rounded-lg transition-all duration-300">
-              <Plus className="w-5 h-5 mr-2" />
-              Agregar Primer Producto
-            </Button>
           </div>
         ) : (
           <>
@@ -597,37 +919,61 @@ export default function InventoryPage() {
                 <TableHeader>
                   <TableRow className="border-white/10 hover:bg-transparent">
                     <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Nombre</TableHead>
-                    <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">SKU</TableHead>
-                    <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Categoría</TableHead>
-                    <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Tipo de Corte</TableHead>
-                    <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Ubicación</TableHead>
-                    <TableHead className="text-slate-300 text-right text-xs lg:text-sm font-semibold">Existencias (kg)</TableHead>
+                    {activeTab === "PACKAGING" && (
+                      <>
+                        <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Proveedor</TableHead>
+                        <TableHead className="text-right text-slate-300 text-xs lg:text-sm font-semibold">Costo Unitario</TableHead>
+                      </>
+                    )}
+                    {activeTab === "RAW_MATERIAL" && (
+                      <>
+                        <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Tipo de Corte</TableHead>
+                        <TableHead className="text-right text-slate-300 text-xs lg:text-sm font-semibold">Stock (kg)</TableHead>
+                      </>
+                    )}
+                    {activeTab === "FINISHED_GOOD" && (
+                      <>
+                        <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">SKU</TableHead>
+                        <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Cuarto Frío</TableHead>
+                      </>
+                    )}
                     <TableHead className="text-slate-300 text-xs lg:text-sm font-semibold">Acciones</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {products.map((product) => (
+                  {filteredProducts.map((product) => (
                     <TableRow key={product.id} className="border-white/5 hover:bg-blue-500/5 transition-colors duration-200 table-row-hover">
                       <TableCell className="text-white font-medium text-xs lg:text-sm">{product.name}</TableCell>
-                      <TableCell className="font-mono text-slate-300 text-xs lg:text-sm">{product.sku}</TableCell>
-                      <TableCell className="text-xs lg:text-sm">
-                        <Badge variant="outline" className={`${getCategoryColor(product.category)} border text-xs font-medium`}>
-                          {getCategoryLabel(product.category)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-xs lg:text-sm">
-                        <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border text-xs font-medium`}>
-                          {getFriesTypeLabel(product.type)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-xs lg:text-sm">
-                        <Badge variant="outline" className={`${getLocationColor(product.location)} border text-xs font-medium`}>
-                          {getLocationLabel(product.location)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right text-blue-400 font-bold text-xs lg:text-sm">
-                        {product.current_stock}
-                      </TableCell>
+                      {activeTab === "PACKAGING" && (
+                        <>
+                          <TableCell className="text-slate-300 text-xs lg:text-sm">{product.provider || "-"}</TableCell>
+                          <TableCell className="text-right text-blue-400 font-semibold text-xs lg:text-sm">
+                            ${product.unit_cost?.toFixed(2) || "0.00"}
+                          </TableCell>
+                        </>
+                      )}
+                      {activeTab === "RAW_MATERIAL" && (
+                        <>
+                          <TableCell className="text-xs lg:text-sm">
+                            <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border text-xs font-medium`}>
+                              {getFriesTypeLabel(product.type)}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right text-blue-400 font-bold text-xs lg:text-sm">
+                            {product.current_stock} kg
+                          </TableCell>
+                        </>
+                      )}
+                      {activeTab === "FINISHED_GOOD" && (
+                        <>
+                          <TableCell className="font-mono text-slate-300 text-xs lg:text-sm">{product.sku}</TableCell>
+                          <TableCell className="text-xs lg:text-sm">
+                            <Badge variant="outline" className={`${getLocationColor(product.location)} border text-xs font-medium`}>
+                              {getLocationLabel(product.location)}
+                            </Badge>
+                          </TableCell>
+                        </>
+                      )}
                       <TableCell className="text-xs lg:text-sm">
                         <div className="flex gap-2">
                           <button
@@ -654,12 +1000,11 @@ export default function InventoryPage() {
 
             {/* Mobile Card View */}
             <div className="md:hidden p-3 sm:p-4 lg:p-6 space-y-4 w-full">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <div key={product.id} className="glass-card p-4 sm:p-5 space-y-4 w-full">
                   <div className="flex justify-between items-start gap-2 w-full">
                     <div className="flex-1 min-w-0">
                       <h3 className="font-bold text-white text-base sm:text-lg truncate">{product.name}</h3>
-                      <p className="text-xs text-zinc-400 font-mono">{product.sku}</p>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">
                       <button
@@ -680,28 +1025,46 @@ export default function InventoryPage() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <p className="text-zinc-400">Categoría</p>
-                      <Badge variant="outline" className={`${getCategoryColor(product.category)} border text-xs mt-1`}>
-                        {getCategoryLabel(product.category)}
-                      </Badge>
-                    </div>
-                    <div>
-                      <p className="text-zinc-400">Tipo de Corte</p>
-                      <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border text-xs mt-1`}>
-                        {getFriesTypeLabel(product.type)}
-                      </Badge>
-                    </div>
-                    <div>
-                      <p className="text-zinc-400">Ubicación</p>
-                      <Badge variant="outline" className={`${getLocationColor(product.location)} border text-xs mt-1`}>
-                        {getLocationLabel(product.location)}
-                      </Badge>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-zinc-400">Existencias</p>
-                      <p className="text-lg font-bold text-blue-400 mt-1">{product.current_stock} kg</p>
-                    </div>
+                    {activeTab === "PACKAGING" && (
+                      <>
+                        <div>
+                          <p className="text-zinc-400">Proveedor</p>
+                          <p className="text-white font-semibold mt-1">{product.provider || "-"}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-zinc-400">Costo</p>
+                          <p className="text-blue-400 font-bold mt-1">${product.unit_cost?.toFixed(2) || "0.00"}</p>
+                        </div>
+                      </>
+                    )}
+                    {activeTab === "RAW_MATERIAL" && (
+                      <>
+                        <div>
+                          <p className="text-zinc-400">Tipo</p>
+                          <Badge variant="outline" className={`${getFriesTypeColor(product.type)} border text-xs mt-1`}>
+                            {getFriesTypeLabel(product.type)}
+                          </Badge>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-zinc-400">Stock</p>
+                          <p className="text-blue-400 font-bold mt-1">{product.current_stock} kg</p>
+                        </div>
+                      </>
+                    )}
+                    {activeTab === "FINISHED_GOOD" && (
+                      <>
+                        <div>
+                          <p className="text-zinc-400">SKU</p>
+                          <p className="text-white font-mono text-sm mt-1">{product.sku}</p>
+                        </div>
+                        <div>
+                          <p className="text-zinc-400">Cuarto Frío</p>
+                          <Badge variant="outline" className={`${getLocationColor(product.location)} border text-xs mt-1`}>
+                            {getLocationLabel(product.location)}
+                          </Badge>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
@@ -709,6 +1072,9 @@ export default function InventoryPage() {
           </>
         )}
       </div>
+
+      {/* Analytics Section */}
+      <AnalyticsCharts />
     </div>
   )
 }

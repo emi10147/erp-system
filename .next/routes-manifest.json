@@ -71,6 +71,12 @@
       "namedRegex": "^/api/inventory(?:/)?$"
     },
     {
+      "page": "/api/inventory-analytics",
+      "regex": "^/api/inventory\\-analytics(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/inventory\\-analytics(?:/)?$"
+    },
+    {
       "page": "/inventory",
       "regex": "^/inventory(?:/)?$",
       "routeKeys": {},

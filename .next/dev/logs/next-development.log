@@ -1,9 +1,8 @@
-[00:00:00.588] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:00.677] Server  LOG     ✓ Ready in 449ms
-[00:00:02.045] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.157] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.168] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.288] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+[00:00:01.736] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.987] Server  LOG     ✓ Ready in 1242ms
+[00:00:25.510] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:29.977] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:44.925] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
 This will cause a hydration error.%s <button> button 
 
   ...
@@ -38,21 +37,10 @@ This will cause a hydration error.%s <button> button
                             ...
         ...
 
-[00:00:02.288] Browser ERROR   <%s> cannot contain a nested %s.
+[00:00:44.925] Browser ERROR   <%s> cannot contain a nested %s.
 See this log for the ancestor stack trace. button <button>
-[00:00:02.293] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.426] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.431] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.459] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.495] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.569] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.646] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.689] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.711] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.768] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.786] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:17.445] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:17.588] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+[00:00:59.069] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:59.282] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
 This will cause a hydration error.%s <button> button 
 
   ...
@@ -87,6 +75,377 @@ This will cause a hydration error.%s <button> button
                             ...
         ...
 
-[00:00:17.588] Browser ERROR   <%s> cannot contain a nested %s.
+[00:00:59.282] Browser ERROR   <%s> cannot contain a nested %s.
 See this log for the ancestor stack trace. button <button>
-[00:00:18.487] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:00.798] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:00.967] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:01:00.967] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:02:03.810] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:04.002] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:02:04.002] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:02:06.194] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:06.382] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:02:06.382] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:02:07.361] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:07.543] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:02:07.543] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:02:17.541] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:17.715] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:02:17.715] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:04:26.661] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:26.883] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:04:26.883] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:09:35.423] Server  LOG     ✓ Compiled in 292ms
+[00:10:07.217] Server  LOG     ✓ Compiled in 183ms
+[00:12:14.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:35.720] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:35.951] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:13:35.951] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:15:15.201] Server  LOG     ✓ Compiled in 192ms
+[00:15:15.394] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:15:16.005] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:15:16.005] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:15:31.638] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:31.642] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:31.645] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:31.647] Server  LOG     ✓ Compiled in 166ms
+[00:15:32.156] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:15:32.381] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:32.437] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:32.490] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:32.604] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:15:33.003] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:15:33.003] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:15:33.003] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:15:33.006] Browser ERROR   uncaughtError: ReferenceError: isSheetOpen is not defined
+[00:16:19.887] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:20.095] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:20.096] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:20.097] Server  LOG     ✓ Compiled in 193ms
+[00:16:20.358] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:20.443] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:20.469] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:21.014] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <div data-slot="sidebar-wr..." style={{...}} className="group/side...">
+      <div className="flex h-scr...">
+        <div className="hidden lg:...">
+          <AppSidebar>
+            <Sidebar className="bg-black b...">
+              <div className="group peer..." data-state="expanded" data-collapsible="" data-variant="sidebar" ...>
+                <div>
+                <div data-slot="sidebar-co..." data-side="left" className="fixed inse...">
+                  <div data-sidebar="sidebar" data-slot="sidebar-inner" className="flex size-...">
+                    <SidebarHeader>
+                    <SidebarContent>
+                    <SidebarFooter className="border-sla...">
+                      <div data-slot="sidebar-fo..." data-sidebar="footer" className="flex flex-...">
+                        <Separator>
+                        <div>
+                        <SidebarMenu className="mt-4 space...">
+                          <ul data-slot="sidebar-menu" data-sidebar="menu" className="flex w-ful...">
+                            <SidebarMenuItem>
+                              <li data-slot="sidebar-me..." data-sidebar="menu-item" className="group/menu...">
+>                               <button onClick={function onClick} className="w-full text-left">
+                                  <SidebarMenuButton className="w-full tex...">
+>                                   <button
+>                                     data-slot="sidebar-menu-button"
+>                                     data-sidebar="menu-button"
+>                                     data-size="default"
+>                                     data-active={false}
+>                                     className={"peer/menu-button group/menu-button flex items-center gap-2 overflow..."}
+>                                   >
+                            ...
+        ...
+
+[00:16:21.014] Browser ERROR   <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button>
+[00:17:11.030] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:08.272] Server  LOG     ✓ Compiled in 351ms
+[00:18:24.926] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:29.365] Server  LOG     ✓ Compiled in 413ms
+[00:22:34.772] Server  LOG     ✓ Compiled in 154ms
+[00:22:52.191] Server  LOG     ✓ Compiled in 1125ms
+[00:23:07.646] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

@@ -10,6 +10,8 @@ export async function createProduct(data: {
   type?: "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT"
   location?: "CUARTO_FRIO_1" | "CUARTO_FRIO_2" | "ALMACEN_GENERAL"
   current_stock: number
+  unit_cost?: number
+  provider?: string
 }) {
   try {
     // Validate stock is not negative
@@ -17,14 +19,19 @@ export async function createProduct(data: {
       return { success: false, message: "Error: El stock no puede ser menor a cero" }
     }
 
+    // Auto-assign ALMACEN_GENERAL for PACKAGING (Insumos)
+    const location = data.category === "PACKAGING" ? "ALMACEN_GENERAL" : (data.location || null)
+
     const product = await db.product.create({
       data: {
         name: data.name,
         sku: data.sku,
         category: data.category,
         type: data.type || "NORMAL_CUT",
-        location: data.location || null,
+        location: location,
         current_stock: data.current_stock,
+        unit_cost: data.unit_cost || null,
+        provider: data.provider || null,
       },
     })
 
@@ -46,12 +53,17 @@ export async function updateProduct(data: {
   type: "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT"
   location?: "CUARTO_FRIO_1" | "CUARTO_FRIO_2" | "ALMACEN_GENERAL"
   current_stock: number
+  unit_cost?: number
+  provider?: string
 }) {
   try {
     // Validate stock is not negative
     if (data.current_stock < 0) {
       return { success: false, message: "Error: El stock no puede ser menor a cero" }
     }
+
+    // Auto-assign ALMACEN_GENERAL for PACKAGING (Insumos)
+    const location = data.category === "PACKAGING" ? "ALMACEN_GENERAL" : (data.location || null)
 
     const product = await db.product.update({
       where: { id: data.id },
@@ -60,8 +72,10 @@ export async function updateProduct(data: {
         sku: data.sku,
         category: data.category,
         type: data.type,
-        location: data.location || null,
+        location: location,
         current_stock: data.current_stock,
+        unit_cost: data.unit_cost || null,
+        provider: data.provider || null,
       },
     })
 

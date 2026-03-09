@@ -39,14 +39,18 @@ async function createProduct(data) {
                 message: "Error: El stock no puede ser menor a cero"
             };
         }
+        // Auto-assign ALMACEN_GENERAL for PACKAGING (Insumos)
+        const location = data.category === "PACKAGING" ? "ALMACEN_GENERAL" : data.location || null;
         const product = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].product.create({
             data: {
                 name: data.name,
                 sku: data.sku,
                 category: data.category,
                 type: data.type || "NORMAL_CUT",
-                location: data.location || null,
-                current_stock: data.current_stock
+                location: location,
+                current_stock: data.current_stock,
+                unit_cost: data.unit_cost || null,
+                provider: data.provider || null
             }
         });
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["revalidatePath"])("/inventory");
@@ -73,6 +77,8 @@ async function updateProduct(data) {
                 message: "Error: El stock no puede ser menor a cero"
             };
         }
+        // Auto-assign ALMACEN_GENERAL for PACKAGING (Insumos)
+        const location = data.category === "PACKAGING" ? "ALMACEN_GENERAL" : data.location || null;
         const product = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["db"].product.update({
             where: {
                 id: data.id
@@ -82,8 +88,10 @@ async function updateProduct(data) {
                 sku: data.sku,
                 category: data.category,
                 type: data.type,
-                location: data.location || null,
-                current_stock: data.current_stock
+                location: location,
+                current_stock: data.current_stock,
+                unit_cost: data.unit_cost || null,
+                provider: data.provider || null
             }
         });
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["revalidatePath"])("/inventory");
