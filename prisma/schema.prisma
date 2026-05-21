@@ -10,7 +10,7 @@ datasource db {
 model Product {
   id                String            @id @default(cuid())
   name              String            @db.VarChar(255)
-  sku               String            @unique @db.VarChar(100)
+  sku               String            @db.VarChar(100)
   category          ProductCategory
   type              FriesType         @default(NORMAL_CUT)
   location          Location?
@@ -45,13 +45,14 @@ model ProductionBatch {
 }
 
 model InventoryLog {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   product_id String
   quantity   Int
-  reason     String   @db.VarChar(255)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  reason     String    @db.VarChar(255)
+  unit_cost  Decimal?  @db.Decimal(10, 2)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  product    Product   @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@index([product_id])
   @@index([createdAt])
@@ -114,4 +115,30 @@ enum Location {
   CUARTO_FRIO_1
   CUARTO_FRIO_2
   ALMACEN_GENERAL
+}
+
+model Employee {
+  id            String        @id @default(cuid())
+  name          String        @db.VarChar(255)
+  position      String        @db.VarChar(255)
+  daily_salary  Decimal       @db.Decimal(10, 2)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  attendance    Attendance[]
+
+  @@index([name])
+}
+
+model Attendance {
+  id            String    @id @default(cuid())
+  employee_id   String
+  date          DateTime
+  hours_worked  Decimal   @default(0) @db.Decimal(10, 2)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  employee      Employee  @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  @@unique([employee_id, date])
+  @@index([employee_id])
+  @@index([date])
 }

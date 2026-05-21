@@ -139,25 +139,6 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 lg:p-8 w-full min-h-screen bg-black">
-      {/* Navigation Buttons - Mobile Friendly */}
-      <div className="mb-8 flex flex-col sm:flex-row gap-4">
-        <a href="/inventory" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-lg hover:shadow-blue-500/30 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
-          <Warehouse className="w-5 h-5" strokeWidth={2.5} />
-          <span>📦 Inventario</span>
-        </a>
-        <a href="/production" className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:shadow-lg hover:shadow-amber-500/30 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
-          <Factory className="w-5 h-5" strokeWidth={2.5} />
-          <span>🏭 Producción</span>
-        </a>
-        <button
-          onClick={handleTestStock}
-          className="px-6 py-3 glass-card text-blue-300 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-initial border-blue-500/50 active:scale-95"
-        >
-          <Beaker className="w-5 h-5" strokeWidth={2.5} />
-          <span>Prueba: +500kg</span>
-        </button>
-      </div>
-
       {/* Header - Responsive */}
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 lg:mb-10 gap-6">
         <div>

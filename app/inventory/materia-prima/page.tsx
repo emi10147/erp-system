@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Plus, Package, Pencil, Trash, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { AnalyticsCharts } from "@/components/analytics-charts"
 import { CostAnalyticsCharts } from "@/components/cost-analytics-charts"
 import {
@@ -63,7 +62,7 @@ interface Product {
   provider?: string
 }
 
-export default function InsumosPage() {
+export default function MateriaPrimaPage() {
   const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -79,7 +78,7 @@ export default function InsumosPage() {
   const [formData, setFormData] = useState({
     name: "",
     sku: "",
-    category: "PACKAGING" as const,
+    category: "RAW_MATERIAL" as const,
     type: "NORMAL_CUT",
     location: "",
     current_stock: "",
@@ -92,7 +91,7 @@ export default function InsumosPage() {
     id: "",
     name: "",
     sku: "",
-    category: "PACKAGING" as const,
+    category: "RAW_MATERIAL" as const,
     type: "NORMAL_CUT",
     location: "",
     current_stock: "",
@@ -100,6 +99,7 @@ export default function InsumosPage() {
     provider: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedProductName, setSelectedProductName] = useState<string | null>(null)
 
   useEffect(() => {
     fetchProducts()
@@ -120,7 +120,7 @@ export default function InsumosPage() {
     }
   }
 
-  const filteredProducts = products.filter((p) => p.category === "PACKAGING")
+  const filteredProducts = products.filter((p) => p.category === "RAW_MATERIAL")
 
   // Consolidate products by name (collapse rows)
   const consolidatedProducts = Array.from(
@@ -131,35 +131,28 @@ export default function InsumosPage() {
           totalStock: 0,
           skus: [],
           category: product.category,
-          totalUnitCost: 0,
-          provider: product.provider || "",
         })
       }
       const consolidated = map.get(product.name)!
       consolidated.totalStock += product.current_stock
-      consolidated.totalUnitCost += (product.unit_cost || 0) * product.current_stock
       consolidated.skus.push({
         id: product.id,
         sku: product.sku,
         stock: product.current_stock,
-        unitCost: product.unit_cost || 0,
         fullProduct: product,
       })
       return map
     }, new Map<string, any>())
-  ).map(([_, value]) => ({
-    ...value,
-    averageUnitCost: value.totalUnitCost / value.totalStock || 0,
-  }))
+  ).map(([_, value]) => value)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const validInsumoNames = ["Aceite Vegetal", "Sal Industrial", "Fundas Plásticas", "Cajas de Cartón", "Etiquetas"]
-    if (!formData.name || !validInsumoNames.includes(formData.name)) {
-      alert("Por favor, selecciona un insumo válido del dropdown")
+    const validMateriaNames = ["Papa Agria", "Papa Chola", "Papa Superchola"]
+    if (!formData.name || !validMateriaNames.includes(formData.name)) {
+      alert("Por favor, selecciona una materia prima válida del dropdown")
       return
     }
-    if (!formData.sku || !formData.current_stock || !formData.unit_cost || !formData.provider) {
+    if (!formData.sku || !formData.current_stock) {
       alert("Por favor, completa todos los campos requeridos")
       return
     }
@@ -169,17 +162,17 @@ export default function InsumosPage() {
       const result = await createProduct({
         name: formData.name,
         sku: formData.sku,
-        category: "PACKAGING",
+        category: "RAW_MATERIAL",
         type: formData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
         location: undefined,
         current_stock: parseInt(formData.current_stock),
-        unit_cost: parseFloat(formData.unit_cost),
-        provider: formData.provider,
+        unit_cost: undefined,
+        provider: undefined,
         ingresoDate: new Date(formData.ingresoDate),
       })
 
       if (result.success) {
-        setFormData({ name: "", sku: "", category: "PACKAGING", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "", ingresoDate: new Date().toISOString().split("T")[0] })
+        setFormData({ name: "", sku: "", category: "RAW_MATERIAL", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "", ingresoDate: new Date().toISOString().split("T")[0] })
         setIsAddOpen(false)
         fetchProducts()
         setAnalyticRefreshTrigger((prev) => prev + 1)
@@ -189,7 +182,7 @@ export default function InsumosPage() {
       }
     } catch (error) {
       console.error("Error:", error)
-      alert("Error al crear el insumo")
+      alert("Error al crear la materia prima")
     } finally {
       setIsSubmitting(false)
     }
@@ -200,7 +193,7 @@ export default function InsumosPage() {
       id: product.id,
       name: product.name,
       sku: product.sku,
-      category: product.category as "PACKAGING",
+      category: product.category as "RAW_MATERIAL",
       type: product.type,
       location: product.location || "",
       current_stock: product.current_stock.toString(),
@@ -212,7 +205,7 @@ export default function InsumosPage() {
 
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!editFormData.name || !editFormData.sku || !editFormData.current_stock || !editFormData.unit_cost || !editFormData.provider) {
+    if (!editFormData.name || !editFormData.sku || !editFormData.current_stock) {
       alert("Por favor, completa todos los campos requeridos")
       return
     }
@@ -223,16 +216,16 @@ export default function InsumosPage() {
         id: editFormData.id,
         name: editFormData.name,
         sku: editFormData.sku,
-        category: "PACKAGING",
+        category: "RAW_MATERIAL",
         type: editFormData.type as "CRINKLE_CUT" | "STEAKHOUSE_CUT" | "NORMAL_CUT",
         location: undefined,
         current_stock: parseInt(editFormData.current_stock),
-        unit_cost: parseFloat(editFormData.unit_cost),
-        provider: editFormData.provider,
+        unit_cost: undefined,
+        provider: undefined,
       })
 
       if (result.success) {
-        setEditFormData({ id: "", name: "", sku: "", category: "PACKAGING", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "" })
+        setEditFormData({ id: "", name: "", sku: "", category: "RAW_MATERIAL", type: "NORMAL_CUT", location: "", current_stock: "", unit_cost: "", provider: "" })
         setIsEditSheetOpen(false)
         fetchProducts()
         setAnalyticRefreshTrigger((prev) => prev + 1)
@@ -242,7 +235,7 @@ export default function InsumosPage() {
       }
     } catch (error) {
       console.error("Error:", error)
-      alert("Error al actualizar el insumo")
+      alert("Error al actualizar la materia prima")
     } finally {
       setIsSubmitting(false)
     }
@@ -251,6 +244,37 @@ export default function InsumosPage() {
   const openDeleteAlert = (product: Product) => {
     setProductToDelete(product)
     setIsDeleteAlertOpen(true)
+  }
+
+  const openSkuSelection = (consolidated: any) => {
+    // Si hay múltiples SKUs, mostrar selector
+    if (consolidated.skus.length > 1) {
+      setSkuOptions(consolidated.skus)
+      setSkuSelectionOpen(true)
+      setSelectedSkuId(consolidated.skus[0].id)
+    } else {
+      // Si hay uno solo, eliminar directamente
+      openDeleteAlert(consolidated.skus[0].fullProduct)
+    }
+  }
+
+  const handleSkuSelected = () => {
+    if (selectedSkuId) {
+      const selected = skuOptions.find((s) => s.id === selectedSkuId)
+      if (selected) {
+        // Encontrar el producto completo
+        const fullProduct = filteredProducts.find((p) => p.id === selectedSkuId)
+        if (fullProduct) {
+          openDeleteAlert(fullProduct)
+          setSkuSelectionOpen(false)
+        }
+      }
+    }
+  }
+
+  const originalOpenDeleteAlert = openDeleteAlert
+  const openDeleteAlertWrapper = (product: Product) => {
+    originalOpenDeleteAlert(product)
   }
 
   const handleConfirmDelete = async () => {
@@ -271,28 +295,9 @@ export default function InsumosPage() {
       }
     } catch (error) {
       console.error("Error:", error)
-      alert("Error al eliminar el insumo")
+      alert("Error al eliminar la materia prima")
     } finally {
       setIsSubmitting(false)
-    }
-  }
-
-  const openSkuSelection = (consolidated: any) => {
-    if (consolidated.skus.length === 1) {
-      openDeleteAlert(consolidated.skus[0].fullProduct)
-    } else {
-      setSkuOptions(consolidated.skus)
-      setSkuSelectionOpen(true)
-      setSelectedSkuId(null)
-    }
-  }
-
-  const handleSkuSelected = () => {
-    if (!selectedSkuId) return
-    const selected = skuOptions.find((sku) => sku.id === selectedSkuId)
-    if (selected) {
-      setSkuSelectionOpen(false)
-      openDeleteAlert(selected.fullProduct)
     }
   }
 
@@ -300,7 +305,7 @@ export default function InsumosPage() {
     <div className="w-full min-h-screen p-4 sm:p-6 lg:p-8 bg-black">
       <button
         onClick={() => router.push("/")}
-        className="mb-6 flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors duration-300 group"
+        className="mb-6 flex items-center gap-2 text-blue-400 hover:text-cyan-300 transition-colors duration-300 group"
       >
         <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
         <span className="font-semibold text-sm">Volver al Panel</span>
@@ -312,43 +317,41 @@ export default function InsumosPage() {
             <div className="p-2 bg-blue-500/20 rounded-lg">
               <Package className="w-7 sm:w-8 lg:w-9 h-7 sm:h-8 lg:h-9 text-blue-400" strokeWidth={2.5} />
             </div>
-            Insumos
+            Materia Prima
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg text-slate-400 font-medium">Aceite, sal y empaques</p>
+          <p className="text-sm sm:text-base lg:text-lg text-cyan-300/70 font-medium">Papas crudas y materiales</p>
         </div>
       </div>
 
       <div className="mb-8">
         <Sheet open={isAddOpen} onOpenChange={setIsAddOpen}>
           <SheetTrigger asChild>
-            <Button className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-black h-auto rounded-lg transition-all duration-300 w-full flex flex-col py-4 font-semibold hover:from-cyan-500 hover:to-cyan-400" style={{boxShadow: '0 0 25px rgba(0, 234, 255, 0.4)'}}>
+            <Button className="bg-gradient-to-r from-blue-700 to-cyan-500 hover:shadow-lg hover:shadow-cyan-400/50 text-white h-auto rounded-lg transition-all duration-300 w-full flex flex-col py-4">
               <Plus className="w-5 h-5 mb-2" strokeWidth={2.5} />
-              <span>Agregar Insumo</span>
-              <span className="text-xs text-cyan-900 font-normal">Aceite, sal, empaques</span>
+              <span>Agregar Materia Prima</span>
+              <span className="text-xs text-cyan-100 font-normal">Papas y materiales</span>
             </Button>
           </SheetTrigger>
-          <SheetContent className="bg-gradient-to-b from-black to-black/80 border-cyan-500/30 w-full sm:max-w-md shadow-2xl" style={{boxShadow: '0 0 30px rgba(0, 234, 255, 0.2), inset -2px 0 10px rgba(0, 234, 255, 0.05)'}}>
+          <SheetContent className="bg-gradient-to-b from-black to-black/80 border-cyan-500/30 w-full sm:max-w-md shadow-2xl">
             <SheetHeader className="mt-6">
-              <SheetTitle className="text-white text-2xl font-bold">Agregar Insumo</SheetTitle>
+              <SheetTitle className="text-white text-2xl font-bold">Agregar Materia Prima</SheetTitle>
               <SheetDescription className="text-cyan-300/70 font-medium">
-                Crea un nuevo insumo en el inventario
+                Crea un nuevo lote de materia prima
               </SheetDescription>
             </SheetHeader>
             <form onSubmit={handleSubmit} className="space-y-5 mt-8 max-h-[calc(100vh-150px)] overflow-y-auto">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-cyan-300 text-sm font-semibold">
-                  Nombre del Insumo
+                  Nombre de la Materia Prima
                 </Label>
                 <Select value={formData.name} onValueChange={(value) => setFormData({ ...formData, name: value })}>
                   <SelectTrigger className="input-modern">
-                    <SelectValue placeholder="Selecciona un insumo" />
+                    <SelectValue placeholder="Selecciona una variedad" />
                   </SelectTrigger>
                   <SelectContent className="bg-black/90 border-cyan-500/30">
-                    <SelectItem value="Aceite Vegetal" className="text-white">Aceite Vegetal</SelectItem>
-                    <SelectItem value="Sal Industrial" className="text-white">Sal Industrial</SelectItem>
-                    <SelectItem value="Fundas Plásticas" className="text-white">Fundas Plásticas</SelectItem>
-                    <SelectItem value="Cajas de Cartón" className="text-white">Cajas de Cartón</SelectItem>
-                    <SelectItem value="Etiquetas" className="text-white">Etiquetas</SelectItem>
+                    <SelectItem value="Papa Agria" className="text-white">Papa Agria</SelectItem>
+                    <SelectItem value="Papa Chola" className="text-white">Papa Chola</SelectItem>
+                    <SelectItem value="Papa Superchola" className="text-white">Papa Superchola</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -359,7 +362,7 @@ export default function InsumosPage() {
                 </Label>
                 <Input
                   id="sku"
-                  placeholder="Ej: INS-001"
+                  placeholder="Ej: MAT-001"
                   value={formData.sku}
                   onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
                   className="input-modern"
@@ -368,7 +371,7 @@ export default function InsumosPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="stock" className="text-cyan-300 text-sm font-semibold">
-                  Existencias
+                  Existencias (KG)
                 </Label>
                 <Input
                   id="stock"
@@ -377,35 +380,6 @@ export default function InsumosPage() {
                   min="0"
                   value={formData.current_stock}
                   onChange={(e) => setFormData({ ...formData, current_stock: e.target.value })}
-                  className="input-modern"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="unitCost" className="text-cyan-300 text-sm font-semibold">
-                  Costo Unitario
-                </Label>
-                <Input
-                  id="unitCost"
-                  type="number"
-                  placeholder="0.00"
-                  min="0"
-                  step="0.01"
-                  value={formData.unit_cost}
-                  onChange={(e) => setFormData({ ...formData, unit_cost: e.target.value })}
-                  className="input-modern"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="provider" className="text-cyan-300 text-sm font-semibold">
-                  Proveedor
-                </Label>
-                <Input
-                  id="provider"
-                  placeholder="Ej: Proveedor XYZ"
-                  value={formData.provider}
-                  onChange={(e) => setFormData({ ...formData, provider: e.target.value })}
                   className="input-modern"
                 />
               </div>
@@ -428,7 +402,7 @@ export default function InsumosPage() {
                 disabled={isSubmitting}
                 className="w-full btn-primary h-12"
               >
-                {isSubmitting ? "Guardando..." : "Crear Insumo"}
+                {isSubmitting ? "Guardando..." : "Crear Materia Prima"}
               </Button>
             </form>
           </SheetContent>
@@ -436,21 +410,21 @@ export default function InsumosPage() {
       </div>
 
       <Sheet open={isEditSheetOpen} onOpenChange={setIsEditSheetOpen}>
-        <SheetContent className="bg-gradient-to-b from-black to-black/80 border-cyan-500/30 w-full sm:max-w-md shadow-2xl" style={{boxShadow: '0 0 30px rgba(0, 234, 255, 0.2), inset -2px 0 10px rgba(0, 234, 255, 0.05)'}}>
+        <SheetContent className="bg-gradient-to-b from-black to-black/80 border-cyan-500/30 w-full sm:max-w-md shadow-2xl">
           <SheetHeader className="mt-6">
-            <SheetTitle className="text-white text-2xl font-bold">Editar Insumo</SheetTitle>
+            <SheetTitle className="text-white text-2xl font-bold">Editar Materia Prima</SheetTitle>
             <SheetDescription className="text-cyan-300/70 font-medium">
-              Actualiza los detalles del insumo
+              Actualiza los detalles de la materia prima
             </SheetDescription>
           </SheetHeader>
           <form onSubmit={handleEditSubmit} className="space-y-5 mt-8 max-h-[calc(100vh-150px)] overflow-y-auto">
             <div className="space-y-2">
               <Label htmlFor="edit-name" className="text-cyan-300 text-sm font-semibold">
-                Nombre del Insumo
+                Nombre de la Materia Prima
               </Label>
               <Input
                 id="edit-name"
-                placeholder="Ej: Aceite Vegetal"
+                placeholder="Ej: Papa Agria"
                 value={editFormData.name}
                 onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
                 className="input-modern"
@@ -458,12 +432,12 @@ export default function InsumosPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-sku" className="text-slate-300 text-sm font-semibold">
+              <Label htmlFor="edit-sku" className="text-cyan-300 text-sm font-semibold">
                 SKU
               </Label>
               <Input
                 id="edit-sku"
-                placeholder="Ej: INS-001"
+                placeholder="Ej: MAT-001"
                 value={editFormData.sku}
                 onChange={(e) => setEditFormData({ ...editFormData, sku: e.target.value })}
                 className="input-modern"
@@ -471,8 +445,8 @@ export default function InsumosPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-stock" className="text-slate-300 text-sm font-semibold">
-                Existencias
+              <Label htmlFor="edit-stock" className="text-cyan-300 text-sm font-semibold">
+                Existencias (KG)
               </Label>
               <Input
                 id="edit-stock"
@@ -485,63 +459,33 @@ export default function InsumosPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="edit-unitCost" className="text-slate-300 text-sm font-semibold">
-                Costo Unitario
-              </Label>
-              <Input
-                id="edit-unitCost"
-                type="number"
-                placeholder="0.00"
-                min="0"
-                step="0.01"
-                value={editFormData.unit_cost}
-                onChange={(e) => setEditFormData({ ...editFormData, unit_cost: e.target.value })}
-                className="input-modern"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="edit-provider" className="text-slate-300 text-sm font-semibold">
-                Proveedor
-              </Label>
-              <Input
-                id="edit-provider"
-                placeholder="Ej: Proveedor XYZ"
-                value={editFormData.provider}
-                onChange={(e) => setEditFormData({ ...editFormData, provider: e.target.value })}
-                className="input-modern"
-              />
-            </div>
-
             <Button
               type="submit"
               disabled={isSubmitting}
               className="w-full btn-primary h-12"
             >
-              {isSubmitting ? "Guardando..." : "Actualizar Insumo"}
+              {isSubmitting ? "Guardando..." : "Actualizar Materia Prima"}
             </Button>
           </form>
         </SheetContent>
       </Sheet>
 
       <AlertDialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
-        <AlertDialogContent className="bg-gradient-to-b from-black to-black/80 border-cyan-500/30 shadow-2xl" style={{boxShadow: '0 0 30px rgba(0, 234, 255, 0.2)'}}>
+        <AlertDialogContent className="bg-gradient-to-b from-black to-black/80 border-cyan-500/30 shadow-2xl">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white text-xl font-bold">¿Estás seguro?</AlertDialogTitle>
             <AlertDialogDescription className="text-cyan-300/70 font-medium">
-              Esta acción es irreversible. Se eliminará permanentemente el insumo de la base de datos.
+              Esta acción es irreversible. Se eliminará permanentemente la materia prima de la base de datos.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="flex justify-end gap-3 pt-4">
-            <AlertDialogCancel className="glass-card text-cyan-300 border-cyan-500/30 hover:bg-cyan-500/10 font-medium">
+            <AlertDialogCancel className="glass-card text-cyan-300 border-cyan-500/20/50 hover:bg-slate-800/50 font-medium">
               Cancelar
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmDelete}
               disabled={isSubmitting}
-              className="bg-gradient-to-r from-red-600 to-red-500 text-white font-medium disabled:opacity-50 transition-all duration-300"
-              style={{boxShadow: '0 0 20px rgba(239, 68, 68, 0.4)'}}
+              className="bg-gradient-to-r from-red-600 to-red-500 text-white hover:shadow-lg hover:shadow-red-500/30 font-medium disabled:opacity-50 transition-all duration-300"
             >
               {isSubmitting ? "Eliminando..." : "Eliminar"}
             </AlertDialogAction>
@@ -554,7 +498,7 @@ export default function InsumosPage() {
           <DialogHeader>
             <DialogTitle className="text-white text-xl font-bold">Seleccionar SKU para eliminar</DialogTitle>
             <DialogDescription className="text-cyan-300/70 font-medium mt-2">
-              Este insumo tiene múltiples variantes. Selecciona cuál deseas eliminar.
+              Este producto tiene múltiples variantes. Selecciona cuál deseas eliminar.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3 max-h-[300px] overflow-y-auto py-4">
@@ -567,7 +511,7 @@ export default function InsumosPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <p className="text-cyan-300 font-semibold">{sku.sku}</p>
-                    <p className="text-cyan-300/60 text-sm mt-1">{sku.stock} unidades</p>
+                    <p className="text-cyan-300/60 text-sm mt-1">{sku.stock} kg</p>
                   </div>
                   <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${selectedSkuId === sku.id ? 'border-cyan-500 bg-cyan-500' : 'border-slate-500'}`}>
                     {selectedSkuId === sku.id && <div className="w-2 h-2 bg-black rounded-full"></div>}
@@ -606,11 +550,11 @@ export default function InsumosPage() {
         ) : consolidatedProducts.length === 0 ? (
           <div className="p-8 sm:p-12 lg:p-16 flex flex-col items-center justify-center">
             <div className="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 glass-card rounded-2xl flex items-center justify-center mb-6">
-              <Package className="w-8 sm:w-10 lg:w-12 h-8 sm:h-10 lg:h-12 text-slate-500" strokeWidth={1.5} />
+              <Package className="w-8 sm:w-10 lg:w-12 h-8 sm:h-10 lg:h-12 text-cyan-300/50" strokeWidth={1.5} />
             </div>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">Sin Insumos</h3>
-            <p className="text-sm sm:text-base lg:text-lg text-slate-400 text-center mb-8 max-w-md font-medium">
-              No hay insumos registrados. Crea uno nuevo para comenzar.
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">Sin Materia Prima</h3>
+            <p className="text-sm sm:text-base lg:text-lg text-cyan-300/70 text-center mb-8 max-w-md font-medium">
+              No hay materia prima registrada. Crea una nueva para comenzar.
             </p>
           </div>
         ) : (
@@ -620,9 +564,7 @@ export default function InsumosPage() {
                 <TableHeader>
                   <TableRow className="border-cyan-500/20 hover:bg-transparent">
                     <TableHead className="text-cyan-300 text-xs lg:text-sm font-semibold">Nombre</TableHead>
-                    <TableHead className="text-cyan-300 text-xs lg:text-sm font-semibold">Proveedor</TableHead>
-                    <TableHead className="text-right text-cyan-300 text-xs lg:text-sm font-semibold">Existencias</TableHead>
-                    <TableHead className="text-right text-cyan-300 text-xs lg:text-sm font-semibold">Costo Unitario Prom.</TableHead>
+                    <TableHead className="text-right text-cyan-300 text-xs lg:text-sm font-semibold">Stock Total (kg)</TableHead>
                     <TableHead className="text-cyan-300 text-xs lg:text-sm font-semibold">Acciones</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -630,33 +572,27 @@ export default function InsumosPage() {
                   {consolidatedProducts.map((consolidated) => (
                     <TableRow key={consolidated.name} className="border-cyan-500/10 hover:bg-cyan-500/5 transition-colors duration-200 table-row-hover">
                       <TableCell className="text-white font-medium text-xs lg:text-sm">{consolidated.name}</TableCell>
-                      <TableCell className="text-cyan-300/70 text-xs lg:text-sm">{consolidated.provider || "-"}</TableCell>
                       <TableCell className="text-right text-blue-400 font-bold text-xs lg:text-sm">
-                        {consolidated.totalStock}
-                      </TableCell>
-                      <TableCell className="text-right text-cyan-400 font-bold text-xs lg:text-sm">
-                        ${consolidated.averageUnitCost?.toFixed(2) || "0.00"}
+                        {consolidated.totalStock} kg
                       </TableCell>
                       <TableCell className="text-xs lg:text-sm">
                         <div className="flex gap-2">
                           <button
                             onClick={() => {
-                              console.log("Debug: consolidated.skus", consolidated.skus);
-                              if (consolidated.skus.length > 0) {
+                              setSelectedProductName(consolidated.name)
+                              if (consolidated.skus.length === 1) {
                                 openEditSheet(consolidated.skus[0].fullProduct)
-                              } else {
-                                alert("No hay SKUs disponibles para editar.")
                               }
                             }}
-                            className="p-2 text-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-500/20 rounded-lg transition-all duration-200 min-h-[40px] min-w-[40px] flex items-center justify-center icon-glow"
-                            title="Editar insumo"
+                            className="p-2 text-cyan-300/70 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 min-h-[40px] min-w-[40px] flex items-center justify-center"
+                            title="Editar materia prima"
                           >
                             <Pencil className="w-4 h-4" strokeWidth={2.5} />
                           </button>
                           <button
                             onClick={() => openSkuSelection(consolidated)}
-                            className="p-2 text-red-400/60 hover:text-red-300 hover:bg-red-500/20 rounded-lg transition-all duration-200 min-h-[40px] min-w-[40px] flex items-center justify-center icon-glow"
-                            title="Eliminar insumo"
+                            className="p-2 text-cyan-300/70 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200 min-h-[40px] min-w-[40px] flex items-center justify-center"
+                            title="Eliminar materia prima"
                           >
                             <Trash className="w-4 h-4" strokeWidth={2.5} />
                           </button>
@@ -679,41 +615,29 @@ export default function InsumosPage() {
                     <div className="flex gap-2 flex-shrink-0">
                       <button
                         onClick={() => {
-                          if (consolidated.skus.length > 0) {
+                          setSelectedProductName(consolidated.name)
+                          if (consolidated.skus.length === 1) {
                             openEditSheet(consolidated.skus[0].fullProduct)
-                          } else {
-                            alert("No hay SKUs disponibles para editar.")
                           }
                         }}
-                        className="p-2 text-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-500/20 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center icon-glow"
-                        title="Editar insumo"
+                        className="p-2 text-cyan-300/60 hover:text-cyan-300 hover:bg-cyan-500/20 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        title="Editar materia prima"
                       >
                         <Pencil className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => openSkuSelection(consolidated)}
-                        className="p-2 text-red-400/60 hover:text-red-300 hover:bg-red-500/20 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center icon-glow"
-                        title="Eliminar insumo"
+                        className="p-2 text-cyan-300/60 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                        title="Eliminar materia prima"
                       >
                         <Trash className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <p className="text-cyan-300/60">Proveedor</p>
-                      <p className="text-white font-semibold mt-1">{consolidated.provider || "-"}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-cyan-300/60">Existencias</p>
-                      <p className="text-blue-400 font-bold mt-1">{consolidated.totalStock}</p>
-                    </div>
-                  </div>
-
-                  <div className="text-right pt-2 border-t border-cyan-500/20">
-                    <p className="text-cyan-300/60 text-xs">Costo Unitario Prom.</p>
-                    <p className="text-cyan-400 font-bold mt-1">${consolidated.averageUnitCost?.toFixed(2) || "0.00"}</p>
+                  <div className="text-right">
+                    <p className="text-cyan-300/60 text-xs">Stock Total</p>
+                    <p className="text-blue-400 font-bold text-base mt-1">{consolidated.totalStock} kg</p>
                   </div>
                 </div>
               ))}
@@ -722,10 +646,10 @@ export default function InsumosPage() {
         )}
       </div>
 
-      <AnalyticsCharts activeCategory="PACKAGING" refreshTrigger={analyticRefreshTrigger} />
+      <AnalyticsCharts activeCategory="RAW_MATERIAL" refreshTrigger={analyticRefreshTrigger} />
 
       <CostAnalyticsCharts 
-        category="PACKAGING" 
+        category="RAW_MATERIAL" 
         refreshTrigger={analyticRefreshTrigger}
       />
     </div>
