@@ -8,6 +8,7 @@ import {
   Factory,
   ShoppingCart,
   Users,
+  WalletCards,
   Settings,
   LogOut,
   ChevronDown,
@@ -40,6 +41,7 @@ const navItems = [
   { icon: LayoutDashboard, label: "Panel de Control", href: "/" },
   { icon: Warehouse, label: "Inventario", href: "/inventory" },
   { icon: Factory, label: "Manufactura", href: "/manufacturing" },
+  { icon: WalletCards, label: "Costos Operativos", href: "/operations" },
   { icon: ShoppingCart, label: "Pedidos", href: "/orders" },
   { icon: Users, label: "Gestión de Personal", href: "/hr" },
 ]
