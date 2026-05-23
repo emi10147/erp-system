@@ -21,9 +21,6 @@ export interface StockGroup {
     id: string
     sku: string
     stock: number
-    current_stock: number
-    category: "RAW_MATERIAL" | "PACKAGING" | "FINISHED_GOOD"
-    unit_cost: any
     createdAt: Date
   }>
 }
@@ -58,9 +55,7 @@ async function getGroupedStock(productNames: string[]): Promise<
       items: Array<{
         id: string
         sku: string
-        category: "RAW_MATERIAL" | "PACKAGING" | "FINISHED_GOOD"
         current_stock: number
-        unit_cost: any
         createdAt: Date
       }>
     }
@@ -74,9 +69,7 @@ async function getGroupedStock(productNames: string[]): Promise<
       id: true,
       name: true,
       sku: true,
-      category: true,
       current_stock: true,
-      unit_cost: true,
       createdAt: true,
     },
   })
@@ -102,10 +95,7 @@ async function getGroupedStock(productNames: string[]): Promise<
     grouped[product.name].items.push({
       id: product.id,
       sku: product.sku,
-      category: product.category,
-      stock: product.current_stock,
       current_stock: product.current_stock,
-      unit_cost: product.unit_cost,
       createdAt: product.createdAt,
     })
   }
@@ -231,44 +221,6 @@ export async function executeProduction(
       }
     }
 
-    // Create the finished product and batch first so all costs can be tied to a production run.
-    let finishedProduct = await db.product.findFirst({
-      where: {
-        type: productType,
-        category: "FINISHED_GOOD",
-      },
-    })
-
-    if (!finishedProduct) {
-      finishedProduct = await db.product.create({
-        data: {
-          name: recipe.name,
-          sku: `PROD-${productType}-${Date.now()}`,
-          category: "FINISHED_GOOD",
-          type: productType,
-          location: "ALMACEN_GENERAL",
-          current_stock: 0,
-        },
-      })
-    }
-
-    const rawInputKg = recipe.rawMaterials.reduce(
-      (sum, item) => sum + item.quantity * targetQuantity,
-      0
-    )
-    const outputKg = targetQuantity * 0.5
-    const wasteKg = Math.max(rawInputKg - outputKg, 0)
-    const batch = await db.productionBatch.create({
-      data: {
-        batch_number: `BATCH-${Date.now()}`,
-        status: "COMPLETED",
-        product_id: finishedProduct.id,
-        input_weight_kg: rawInputKg,
-        output_weight_kg: outputKg,
-        waste_weight_kg: wasteKg,
-      },
-    })
-
     // Get all items needed
     const allItems = [
       ...recipe.rawMaterials.map((r) => ({ ...r, type: "rawMaterial" })),
@@ -311,31 +263,13 @@ export async function executeProduction(
           },
         })
 
-        const unitCost = stockItem.unit_cost ? Number(stockItem.unit_cost) : 0
-        const totalCost = unitCost * toDeduct
-        const costCategory =
-          stockItem.category === "RAW_MATERIAL" ? "RAW_MATERIALS" : "INSUMOS"
-
         // Create inventory log for deduction
         await db.inventoryLog.create({
           data: {
             product_id: stockItem.id,
             quantity: -toDeduct,
-            unit_cost: unitCost,
             reason: `Producción: ${recipe.name} (${targetQuantity} unidades)`,
             createdAt: new Date(),
-          },
-        })
-
-        await db.productionConsumption.create({
-          data: {
-            batch_id: batch.id,
-            product_id: stockItem.id,
-            quantity: toDeduct,
-            unit_cost: unitCost,
-            total_cost: totalCost,
-            cost_category: costCategory,
-            consumedAt: new Date(),
           },
         })
 
@@ -350,6 +284,27 @@ export async function executeProduction(
       if (remaining > 0) {
         return { success: false, message: `Error al deducir ${item.name}` }
       }
+    }
+
+    // Find or create finished product by type
+    let finishedProduct = await db.product.findFirst({
+      where: {
+        type: productType,
+        category: "FINISHED_GOOD",
+      },
+    })
+
+    if (!finishedProduct) {
+      finishedProduct = await db.product.create({
+        data: {
+          name: recipe.name,
+          sku: `PROD-${productType}-${Date.now()}`,
+          category: "FINISHED_GOOD",
+          type: productType,
+          location: "ALMACEN_GENERAL",
+          current_stock: 0,
+        },
+      })
     }
 
     // Increment finished product stock
@@ -374,13 +329,12 @@ export async function executeProduction(
 
     revalidatePath("/inventory")
     revalidatePath("/manufacturing")
-    revalidatePath("/operations")
     revalidatePath("/")
 
     return {
       success: true,
       message: `Producción completada: ${targetQuantity} unidades de ${recipe.name} fabricadas exitosamente`,
-      batchId: batch.id,
+      batchId: finishedProduct.id,
     }
   } catch (error) {
     console.error("Error en ejecución de producción:", error)

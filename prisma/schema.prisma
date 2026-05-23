@@ -8,38 +8,36 @@ datasource db {
 }
 
 model Product {
-  id                String                  @id @default(cuid())
-  name              String                  @db.VarChar(255)
-  sku               String                  @db.VarChar(100)
+  id                String            @id @default(cuid())
+  name              String            @db.VarChar(255)
+  sku               String            @db.VarChar(100)
   category          ProductCategory
-  type              FriesType               @default(NORMAL_CUT)
+  type              FriesType         @default(NORMAL_CUT)
   location          Location?
-  current_stock     Int                     @default(0)
-  unit_cost         Decimal?                @db.Decimal(10, 2)
-  provider          String?                 @db.VarChar(255)
-  createdAt         DateTime                @default(now())
-  updatedAt         DateTime                @updatedAt
+  current_stock     Int               @default(0)
+  unit_cost         Decimal?          @db.Decimal(10, 2)
+  provider          String?           @db.VarChar(255)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
   inventoryLogs     InventoryLog[]
   orderItems        OrderItem[]
   productionBatches ProductionBatch[]
-  productionCosts   ProductionConsumption[]
 
   @@index([category])
   @@index([sku])
 }
 
 model ProductionBatch {
-  id               String                  @id @default(cuid())
-  batch_number     String                  @unique @db.VarChar(100)
+  id               String      @id @default(cuid())
+  batch_number     String      @unique @db.VarChar(100)
   status           BatchStatus
   product_id       String
-  input_weight_kg  Decimal                 @db.Decimal(10, 2)
-  output_weight_kg Decimal                 @db.Decimal(10, 2)
-  waste_weight_kg  Decimal                 @db.Decimal(10, 2)
-  createdAt        DateTime                @default(now())
-  updatedAt        DateTime                @updatedAt
-  product          Product                 @relation(fields: [product_id], references: [id], onDelete: Cascade)
-  consumption      ProductionConsumption[]
+  input_weight_kg  Decimal     @db.Decimal(10, 2)
+  output_weight_kg Decimal     @db.Decimal(10, 2)
+  waste_weight_kg  Decimal     @db.Decimal(10, 2)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  product          Product     @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@index([status])
   @@index([batch_number])
@@ -47,14 +45,14 @@ model ProductionBatch {
 }
 
 model InventoryLog {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   product_id String
   quantity   Int
-  reason     String   @db.VarChar(255)
-  unit_cost  Decimal? @db.Decimal(10, 2)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  reason     String    @db.VarChar(255)
+  unit_cost  Decimal?  @db.Decimal(10, 2)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  product    Product   @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@index([product_id])
   @@index([createdAt])
@@ -120,100 +118,27 @@ enum Location {
 }
 
 model Employee {
-  id           String       @id @default(cuid())
-  name         String       @db.VarChar(255)
-  position     String       @db.VarChar(255)
-  daily_salary Decimal      @db.Decimal(10, 2)
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  attendance   Attendance[]
+  id            String        @id @default(cuid())
+  name          String        @db.VarChar(255)
+  position      String        @db.VarChar(255)
+  daily_salary  Decimal       @db.Decimal(10, 2)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  attendance    Attendance[]
 
   @@index([name])
 }
 
 model Attendance {
-  id           String   @id @default(cuid())
-  employee_id  String
-  date         DateTime
-  hours_worked Decimal  @default(0) @db.Decimal(10, 2)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  employee     Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+  id            String    @id @default(cuid())
+  employee_id   String
+  date          DateTime
+  hours_worked  Decimal   @default(0) @db.Decimal(10, 2)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  employee      Employee  @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 
   @@unique([employee_id, date])
   @@index([employee_id])
   @@index([date])
-}
-
-model UtilityExpense {
-  id               String                 @id @default(cuid())
-  type             UtilityType
-  measurement_unit UtilityMeasurementUnit
-  consumption      Decimal?               @db.Decimal(12, 2)
-  amount           Decimal                @db.Decimal(12, 2)
-  expense_date     DateTime               @db.Date
-  notes            String?                @db.VarChar(500)
-  createdAt        DateTime               @default(now())
-  updatedAt        DateTime               @updatedAt
-
-  @@index([type])
-  @@index([expense_date])
-}
-
-model MonthlyBudget {
-  id               String         @id @default(cuid())
-  year             Int
-  month            Int
-  category         BudgetCategory
-  allocated_amount Decimal        @db.Decimal(12, 2)
-  notes            String?        @db.VarChar(500)
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-
-  @@unique([year, month, category])
-  @@index([year, month])
-}
-
-model ProductionConsumption {
-  id            String           @id @default(cuid())
-  batch_id      String?
-  product_id    String
-  quantity      Decimal          @db.Decimal(12, 2)
-  unit_cost     Decimal          @db.Decimal(12, 4)
-  total_cost    Decimal          @db.Decimal(12, 2)
-  cost_category CostCategory
-  consumedAt    DateTime         @default(now())
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  batch         ProductionBatch? @relation(fields: [batch_id], references: [id], onDelete: SetNull)
-  product       Product          @relation(fields: [product_id], references: [id], onDelete: Cascade)
-
-  @@index([batch_id])
-  @@index([product_id])
-  @@index([cost_category])
-  @@index([consumedAt])
-}
-
-enum UtilityType {
-  GAS
-  ELECTRICITY
-}
-
-enum UtilityMeasurementUnit {
-  GAS_KG
-  GAS_TANK
-  GAS_CORPORATE_LITER
-  ELECTRICITY_KWH
-  USD
-}
-
-enum BudgetCategory {
-  RAW_MATERIALS
-  INSUMOS
-  UTILITIES
-}
-
-enum CostCategory {
-  RAW_MATERIALS
-  INSUMOS
 }
