@@ -1,0 +1,19 @@
+{
+  "name": "Factory ERP Production Floor",
+  "short_name": "Factory Floor",
+  "description": "Tablet production order entry for the French Fry Factory floor.",
+  "start_url": "/production-floor",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00eaff",
+  "orientation": "landscape-primary",
+  "icons": [
+    {
+      "src": "/icons/factory-floor.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

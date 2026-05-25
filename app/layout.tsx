@@ -9,6 +9,12 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 export const metadata: Metadata = {
   title: "Fries Control v1.0 | Factory ERP",
   description: "Professional frozen fries factory ERP system",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Factory Floor",
+    statusBarStyle: "black-translucent",
+  },
 }
 
 export default function RootLayout({

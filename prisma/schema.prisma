@@ -45,14 +45,14 @@ model ProductionBatch {
 }
 
 model InventoryLog {
-  id         String    @id @default(cuid())
+  id         String   @id @default(cuid())
   product_id String
   quantity   Int
-  reason     String    @db.VarChar(255)
-  unit_cost  Decimal?  @db.Decimal(10, 2)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  product    Product   @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  reason     String   @db.VarChar(255)
+  unit_cost  Decimal? @db.Decimal(10, 2)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@index([product_id])
   @@index([createdAt])
@@ -118,27 +118,58 @@ enum Location {
 }
 
 model Employee {
-  id            String        @id @default(cuid())
-  name          String        @db.VarChar(255)
-  position      String        @db.VarChar(255)
-  daily_salary  Decimal       @db.Decimal(10, 2)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  attendance    Attendance[]
+  id           String       @id @default(cuid())
+  name         String       @db.VarChar(255)
+  position     String       @db.VarChar(255)
+  daily_salary Decimal      @db.Decimal(10, 2)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  attendance   Attendance[]
 
   @@index([name])
 }
 
 model Attendance {
-  id            String    @id @default(cuid())
-  employee_id   String
-  date          DateTime
-  hours_worked  Decimal   @default(0) @db.Decimal(10, 2)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  employee      Employee  @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  employee_id  String
+  date         DateTime
+  hours_worked Decimal  @default(0) @db.Decimal(10, 2)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  employee     Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 
   @@unique([employee_id, date])
   @@index([employee_id])
   @@index([date])
+}
+
+model ProductionOrder {
+  id               String                @id @default(cuid())
+  target_label     String                @db.VarChar(255)
+  boxes_target     Int
+  potato_quality   PotatoQuality
+  potato_weight_kg Decimal               @db.Decimal(12, 2)
+  cardboard_boxes  Int
+  labels           Int
+  status           ProductionOrderStatus @default(PENDING)
+  notes            String?               @db.VarChar(500)
+  completedAt      DateTime?
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([potato_quality])
+  @@map("ProductionOrders")
+}
+
+enum PotatoQuality {
+  PAPA_GRUESA
+  PAPA_SEGUNDA
+}
+
+enum ProductionOrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
 }
