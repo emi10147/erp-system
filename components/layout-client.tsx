@@ -17,12 +17,13 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isChecking, setIsChecking] = useState(true)
+  const isPublicStandaloneRoute = pathname === "/login" || pathname === "/production-floor"
 
   useEffect(() => {
     // Check if user is authenticated
     const checkAuth = async () => {
-      // If on login page, don't check auth
-      if (pathname === "/login") {
+      // If on a public standalone page, don't check auth
+      if (isPublicStandaloneRoute) {
         setIsChecking(false)
         return
       }
@@ -47,13 +48,13 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
     }
 
     checkAuth()
-  }, [pathname, router])
+  }, [isPublicStandaloneRoute, pathname, router])
 
   return (
     <TooltipProvider>
       <SidebarProvider>
         {/* Show loading state while checking auth */}
-        {isChecking && pathname !== "/login" ? (
+        {isChecking && !isPublicStandaloneRoute ? (
           <div className="w-screen h-screen bg-black flex items-center justify-center">
             <div className="text-center">
               <div className="mb-4 flex justify-center">
@@ -67,16 +68,16 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
         ) : (
         <div className="flex h-screen w-screen">
           {/* Desktop Sidebar - Hidden on mobile, Hidden on login page */}
-          {pathname !== "/login" && (
+          {!isPublicStandaloneRoute && (
             <div className="hidden lg:block">
               <AppSidebar />
             </div>
           )}
 
           {/* Mobile Top Nav + Main Content */}
-          <div className={`${pathname === "/login" ? "w-full" : "flex-1"} flex flex-col`}>
+          <div className={`${isPublicStandaloneRoute ? "w-full" : "flex-1"} flex flex-col`}>
             {/* Mobile Navigation Bar - Hidden on login */}
-            {pathname !== "/login" && (
+            {!isPublicStandaloneRoute && (
             <div className="lg:hidden bg-black/80 backdrop-blur-md border-b border-blue-500/30 px-4 py-4 flex items-center justify-between sticky top-0 z-50 shadow-lg">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">

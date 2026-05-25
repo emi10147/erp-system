@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Clock, Plus, Zap, Factory, Beaker, Snowflake, Warehouse } from "lucide-react"
+import { Clock, Plus, Zap, Factory, Beaker, Snowflake, Warehouse, ClipboardList } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -36,9 +36,22 @@ interface ColdStorageData {
   cuartoFrio2: FreezerData
 }
 
+interface ProductionOrder {
+  id: string
+  targetLabel: string
+  boxesTarget: number
+  potatoQualityLabel: string
+  potatoWeightKg: number
+  cardboardBoxes: number
+  labels: number
+  status: "PENDING" | "IN_PROGRESS" | "COMPLETED"
+  createdAt: string
+}
+
 export default function Dashboard() {
   const [currentTime, setCurrentTime] = useState<string>("")
   const [batches, setBatches] = useState<ProductionBatch[]>([])
+  const [productionOrders, setProductionOrders] = useState<ProductionOrder[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [stats, setStats] = useState({
     rawStock: 0,
@@ -62,6 +75,26 @@ export default function Dashboard() {
     }
     updateClock()
     const interval = setInterval(updateClock, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const fetchProductionOrders = async () => {
+      try {
+        const response = await fetch("/api/production-orders?take=8", {
+          cache: "no-store",
+        })
+        if (response.ok) {
+          const data = await response.json()
+          setProductionOrders(data.orders || [])
+        }
+      } catch (error) {
+        console.error("Failed to fetch production orders:", error)
+      }
+    }
+
+    fetchProductionOrders()
+    const interval = setInterval(fetchProductionOrders, 5000)
     return () => clearInterval(interval)
   }, [])
 
@@ -122,6 +155,49 @@ export default function Dashboard() {
     }
   }
 
+  const getOrderStatusColor = (status: string) => {
+    switch (status) {
+      case "COMPLETED":
+        return "bg-blue-500/20 text-blue-300 border-blue-500/30"
+      case "IN_PROGRESS":
+        return "bg-amber-500/20 text-amber-300 border-amber-500/30"
+      default:
+        return "bg-cyan-500/20 text-cyan-300 border-cyan-500/30"
+    }
+  }
+
+  const getOrderStatusLabel = (status: string) => {
+    switch (status) {
+      case "COMPLETED":
+        return "Completed"
+      case "IN_PROGRESS":
+        return "In Progress"
+      default:
+        return "Pending"
+    }
+  }
+
+  const advanceProductionOrder = async (orderId: string) => {
+    try {
+      const response = await fetch(`/api/production-orders/${orderId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ advance: true }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setProductionOrders((orders) =>
+          orders
+            .map((order) => (order.id === orderId ? data.order : order))
+            .filter((order) => order.status !== "COMPLETED")
+        )
+      }
+    } catch (error) {
+      console.error("Failed to advance production order:", error)
+    }
+  }
+
   const StatCard = ({ title, value, loading }: { title: string; value: string | number; loading: boolean }) => (
     <div className="glass-card p-6 lg:p-7">
       <p className="text-xs lg:text-sm font-semibold text-slate-400 mb-3 uppercase tracking-wide">{title}</p>
@@ -162,6 +238,85 @@ export default function Dashboard() {
         <StatCard title="Pedidos Pendientes" value={stats.pendingOrders} loading={isLoading} />
         <StatCard title="Materia Prima" value={stats.rawStock} loading={isLoading} />
         <StatCard title="Producto Terminado" value={stats.coldStorage} loading={isLoading} />
+      </div>
+
+      <div className="glass-card-premium mb-10">
+        <div className="p-6 lg:p-8 border-b border-white/10">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white flex items-center gap-3 mb-2">
+                <div className="p-2 bg-cyan-500/20 rounded-lg">
+                  <ClipboardList className="w-6 h-6 text-cyan-300" strokeWidth={2.5} />
+                </div>
+                Active Production Orders
+              </h2>
+              <p className="text-sm text-slate-400 font-medium">
+                Sincronizado cada 5 segundos con la tablet de planta
+              </p>
+            </div>
+            <Badge className="bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+              {productionOrders.length} activas
+            </Badge>
+          </div>
+        </div>
+
+        {productionOrders.length === 0 ? (
+          <div className="p-8 text-center text-slate-400">
+            No hay ordenes de produccion activas desde tablet.
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-white/10 hover:bg-transparent">
+                  <TableHead className="text-slate-300 font-semibold">Orden</TableHead>
+                  <TableHead className="text-slate-300 font-semibold">Papa</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Kg</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Cajas</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Etiquetas</TableHead>
+                  <TableHead className="text-slate-300 font-semibold">Estado</TableHead>
+                  <TableHead className="text-slate-300 text-right font-semibold">Accion</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {productionOrders.map((order) => (
+                  <TableRow key={order.id} className="border-white/5 hover:bg-cyan-500/5">
+                    <TableCell className="font-semibold text-white">
+                      <div>{order.targetLabel}</div>
+                      <div className="text-xs text-slate-500">
+                        {new Date(order.createdAt).toLocaleTimeString()}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-cyan-300">{order.potatoQualityLabel}</TableCell>
+                    <TableCell className="text-right text-slate-300 font-medium">
+                      {order.potatoWeightKg.toFixed(2)}
+                    </TableCell>
+                    <TableCell className="text-right text-slate-300 font-medium">
+                      {order.cardboardBoxes}
+                    </TableCell>
+                    <TableCell className="text-right text-slate-300 font-medium">
+                      {order.labels}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className={`${getOrderStatusColor(order.status)} border font-medium`}>
+                        {getOrderStatusLabel(order.status)}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        onClick={() => advanceProductionOrder(order.id)}
+                        disabled={order.status === "COMPLETED"}
+                        className="min-h-10 bg-cyan-600 hover:bg-cyan-500 text-black font-bold"
+                      >
+                        Avanzar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
       </div>
 
       {/* Cold Storage Detail Section - Responsive */}

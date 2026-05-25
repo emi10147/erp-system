@@ -1,19 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
 
 // Routes that don't require authentication
-const publicRoutes = ["/login"]
-const publicApiRoutes = ["/api/auth/login", "/api/auth/logout", "/api/cost-analytics", "/api/inventory"]
+const publicRoutes = ["/login", "/production-floor", "/manifest.webmanifest"]
+const publicApiRoutes = [
+  "/api/auth/login",
+  "/api/auth/logout",
+  "/api/cost-analytics",
+  "/api/inventory",
+  "/api/production-orders",
+]
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Allow public page routes
-  if (publicRoutes.includes(pathname)) {
+  if (publicRoutes.includes(pathname) || pathname.startsWith("/icons/")) {
     return NextResponse.next()
   }
 
   // Allow public API routes (auth endpoints)
-  if (publicApiRoutes.includes(pathname)) {
+  if (publicApiRoutes.includes(pathname) || pathname.startsWith("/api/production-orders/")) {
     return NextResponse.next()
   }
 
